@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 Duncan Fairley
+ * Copyright ï¿½ 2014 Duncan Fairley
  * Distributed under the GNU Affero General Public License, version 3.
  * Your changes must be made public.
  * For the full license text, see LICENSE.txt.
@@ -60,24 +60,8 @@ mob
 				overlays+=/image/meditate
 				hearers()<<"<span style=\"color:red;\">[src] meditates.</span>"
 				var/maxMP = MMP + extraMMP
-				for()
-					if(meditateWait >= 0)
-						if(MP < maxMP)
-							MP = min(maxMP, MP + maxMP*0.05)
-							updateHPMP()
-							meditateWait -= 10
-						if(meditateWait == 0)
-							break
-						if(MP >= maxMP)
-							break;
-					sleep(meditateDelay)
-				sleep(meditateWait)
-				overlays-=/image/meditate
-				meditateWait = 50
-
-				//var/maxMP = MMP + extraMMP
-				//MP = min(maxMP, MP + maxMP*0.4)
-				//updateHPMP()
+				MP = min(maxMP, MP + maxMP*0.8)
+				updateHPMP()
 
 mob
 	var/questionius = 2
