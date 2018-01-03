@@ -117,7 +117,7 @@ obj
 				spawn _SoundEngine(pick(PageSounds), usr , range = 5, volume=90)
 				spawn(15)
 					while(p && p.readbooks > 0 && get_dist(src, p) <= 1)
-						var/exp  = get_exp(p.level)
+						var/exp  = get_exp(p.level) * worldData.expBookModifier
 						if(p.presence)
 							exp = round(rand(exp - exp / 10, exp + exp / 10))
 							p.addExp(exp, 1, 0)
