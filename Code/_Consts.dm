@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 Duncan Fairley
+ * Copyright ï¿½ 2014 Duncan Fairley
  * Distributed under the GNU Affero General Public License, version 3.
  * Your changes must be made public.
  * For the full license text, see LICENSE.txt.
@@ -14,10 +14,10 @@
 #define ismonster(x) istype(x, /mob/Enemies)
 #define SetSize(s) transform = matrix() * ((s) / iconSize)
 
-#define VERSION "16.70.6 - devbuild"
-#define SAVEFILE_VERSION 29
+#define VERSION "16.69"
+#define SAVEFILE_VERSION 30
 #define VAULT_VERSION 4
-#define lvlcap 650
+#define lvlcap 1650
 #define SWAPMAP_Z 24
 #define WINTER 1
 #define AUTUMN 0
