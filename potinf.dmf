@@ -819,12 +819,11 @@ window "mainwindow"
 		size = 640x440
 		anchor1 = none
 		anchor2 = none
-		background-color = #000000
+		background-color = none
+		is-default = true
 		saved-params = "pos;size;is-minimized;is-maximized"
 		title = "The Wizards' Chronicles"
-		statusbar = false
 		is-maximized = true
-		icon = 'Icons\\Simon.dmi'
 		macro = "macro"
 		menu = "menu"
 	elem "barMP"
@@ -861,6 +860,7 @@ window "mainwindow"
 		size = 1x1
 		anchor1 = none
 		anchor2 = none
+		background-color = none
 		is-visible = false
 		saved-params = ""
 	elem "mainvsplit"
@@ -869,9 +869,9 @@ window "mainwindow"
 		size = 634x400
 		anchor1 = 0,0
 		anchor2 = 100,100
-		background-color = #1f1f1f
+		background-color = none
 		saved-params = "splitter"
-		right = "rpane"
+		right = "mapwindow"
 		is-vert = true
 	elem "input"
 		type = INPUT
@@ -880,6 +880,7 @@ window "mainwindow"
 		anchor1 = 0,100
 		anchor2 = 100,100
 		background-color = #d3b5b5
+		is-visible = false
 		is-default = true
 		border = sunken
 		saved-params = "command"
@@ -889,6 +890,8 @@ window "mainwindow"
 		size = 40x20
 		anchor1 = 100,100
 		anchor2 = none
+		background-color = none
+		is-visible = false
 		saved-params = "is-checked"
 		text = "Chat"
 		command = ".winset \"saybutton.is-checked=true?input.command=\"!say \\\"\" macrobutton.is-checked=false:input.command=\""
@@ -899,18 +902,12 @@ window "mainwindow"
 		size = 30x20
 		anchor1 = 100,100
 		anchor2 = none
+		background-color = none
+		is-visible = false
 		saved-params = "is-checked"
 		text = "Alt"
 		command = ".winset \"macrobutton.is-checked=true?input.command=\"!.alt \" saybutton.is-checked=false:input.command=\""
 		button-type = pushbox
-	elem "broLogin"
-		type = BROWSER
-		pos = 0,0
-		size = 640x440
-		anchor1 = 0,0
-		anchor2 = 100,100
-		background-color = #ffffff
-		saved-params = ""
 
 window "mapwindow"
 	elem "mapwindow"
@@ -919,6 +916,7 @@ window "mapwindow"
 		size = 645x490
 		anchor1 = none
 		anchor2 = none
+		background-color = none
 		saved-params = "pos;size;is-minimized;is-maximized"
 		titlebar = false
 		statusbar = false
@@ -932,6 +930,7 @@ window "mapwindow"
 		size = 645x490
 		anchor1 = 0,0
 		anchor2 = 100,100
+		background-color = none
 		saved-params = ""
 	elem "map"
 		type = MAP
@@ -980,13 +979,7 @@ window "rpane"
 		size = 640x480
 		anchor1 = none
 		anchor2 = none
-		background-color = #000000
 		saved-params = "pos;size;is-minimized;is-maximized"
-		titlebar = false
-		statusbar = false
-		can-close = false
-		can-minimize = false
-		can-resize = false
 		is-pane = true
 	elem "rpanewindow"
 		type = CHILD
@@ -994,44 +987,15 @@ window "rpane"
 		size = 634x456
 		anchor1 = 0,0
 		anchor2 = 100,100
-		background-color = #000000
 		saved-params = "splitter"
 		right = "outputwindow"
 		is-vert = false
-	elem "button2"
-		type = BUTTON
-		pos = 192,0
-		size = 60x20
-		anchor1 = none
-		anchor2 = none
-		text-color = #ffffff
-		background-color = #313131
-		saved-params = "is-checked"
-		text = "Forums"
-		command = "Forums"
-		group = "rpanemode"
-		button-type = pushbox
-	elem "button1"
-		type = BUTTON
-		pos = 128,0
-		size = 60x20
-		anchor1 = none
-		anchor2 = none
-		text-color = #ffffff
-		background-color = #313131
-		saved-params = "is-checked"
-		text = "Discord"
-		command = "Discord"
-		group = "rpanemode"
-		button-type = pushbox
 	elem "textb"
 		type = BUTTON
 		pos = 0,0
 		size = 60x20
 		anchor1 = none
 		anchor2 = none
-		text-color = #f9f9f9
-		background-color = #3b3b3b
 		is-visible = false
 		saved-params = "is-checked"
 		text = "Text"
@@ -1045,8 +1009,7 @@ window "rpane"
 		size = 60x20
 		anchor1 = none
 		anchor2 = none
-		text-color = #ffffff
-		background-color = #2a2a2a
+		is-visible = false
 		saved-params = "is-checked"
 		text = "Browser"
 		command = ".winset \"rpanewindow.left=browserwindow\""
@@ -1058,8 +1021,6 @@ window "rpane"
 		size = 60x20
 		anchor1 = none
 		anchor2 = none
-		text-color = #ffffff
-		background-color = #313131
 		is-visible = false
 		saved-params = "is-checked"
 		text = "Info"
@@ -1097,7 +1058,6 @@ window "infowindow"
 		size = 640x480
 		anchor1 = none
 		anchor2 = none
-		background-color = #000000
 		saved-params = "pos;size;is-minimized;is-maximized"
 		title = "Info"
 		titlebar = false
@@ -1112,17 +1072,11 @@ window "infowindow"
 		size = 640x480
 		anchor1 = 0,0
 		anchor2 = 100,100
-		text-color = #ffffff
-		background-color = #000000
 		is-default = true
 		saved-params = ""
 		highlight-color = #00aa00
-		tab-text-color = #ffffff
-		tab-background-color = #000000
 		on-show = ".winset\"rpane.infob.is-visible=true;rpane.browseb.is-visible=true?rpane.infob.pos=130,0:rpane.infob.pos=65,0 rpane.textb.is-visible=true rpane.infob.is-checked=true rpane.rpanewindow.pos=0,30 rpane.rpanewindow.size=0x0 rpane.rpanewindow.left=infowindow\""
 		on-hide = ".winset\"rpane.infob.is-visible=false;rpane.browseb.is-visible=true?rpane.browseb.is-checked=true rpane.rpanewindow.left=browserwindow:rpane.textb.is-visible=false rpane.rpanewindow.pos=0,0 rpane.rpanewindow.size=0x0 rpane.rpanewindow.left=\""
-		prefix-color = #ffffff
-		suffix-color = #ffffff
 
 window "Trade"
 	elem "Trade"
@@ -1331,7 +1285,6 @@ window "winSettings"
 		size = 535x300
 		anchor1 = none
 		anchor2 = none
-		background-color = #000000
 		is-visible = false
 		saved-params = "pos;size;is-minimized;is-maximized"
 		title = "Settings"
@@ -1339,62 +1292,15 @@ window "winSettings"
 		can-minimize = false
 		can-resize = false
 		macro = "macro"
-	elem "bar2"
-		type = BAR
-		pos = 272,40
-		size = 16x256
-		anchor1 = none
-		anchor2 = none
-		background-color = #282828
-		saved-params = ""
-		bar-color = #0f0f0f
-		is-slider = false
-		dir = north
-	elem "button3"
-		type = BUTTON
-		pos = 408,236
-		size = 120x28
-		anchor1 = none
-		anchor2 = none
-		background-color = none
-		border = line
-		saved-params = "is-checked"
-		text = "Client FPS"
-		command = "client-fps"
-		is-flat = true
-	elem "label1"
-		type = LABEL
-		pos = 232,8
-		size = 60x20
-		anchor1 = none
-		anchor2 = none
-		text-color = #e02747
-		background-color = #000000
-		saved-params = ""
-		text = "Settings"
-	elem "bar1"
-		type = BAR
-		pos = 8,32
-		size = 520x10
-		anchor1 = none
-		anchor2 = none
-		background-color = #2c2c2c
-		saved-params = ""
-		bar-color = #232323
-		is-slider = false
-		dir = east
 	elem "buttonControlSet"
 		type = BUTTON
 		pos = 9,276
 		size = 167x24
 		anchor1 = none
 		anchor2 = none
-		text-color = #ffffff
-		background-color = #000000
 		saved-params = "is-checked"
 		text = "Use experimental movement"
 		command = "swapControls"
-		is-checked = true
 		button-type = checkbox
 	elem "button5"
 		type = BUTTON
@@ -1402,7 +1308,6 @@ window "winSettings"
 		size = 120x28
 		anchor1 = none
 		anchor2 = none
-		background-color = none
 		border = line
 		saved-params = "is-checked"
 		text = "On-Screen Text Color"
@@ -1414,8 +1319,6 @@ window "winSettings"
 		size = 119x24
 		anchor1 = none
 		anchor2 = none
-		text-color = #ffffff
-		background-color = #000000
 		saved-params = "is-checked"
 		text = "Hide quest tracker"
 		command = ".QuestTrackertoggle"
@@ -1426,8 +1329,6 @@ window "winSettings"
 		size = 247x24
 		anchor1 = none
 		anchor2 = none
-		text-color = #ffffff
-		background-color = #000000
 		saved-params = "is-checked"
 		text = "Disable automatic AFK (Use at your own risk!)"
 		command = ".AFKtoggle"
@@ -1438,8 +1339,6 @@ window "winSettings"
 		size = 232x24
 		anchor1 = none
 		anchor2 = none
-		text-color = #ffffff
-		background-color = #000000
 		saved-params = "is-checked"
 		text = "Disable sounds (PMs, Events, Classes etc)"
 		command = ".Soundtoggle"
@@ -1450,8 +1349,6 @@ window "winSettings"
 		size = 200x20
 		anchor1 = none
 		anchor2 = none
-		text-color = #ffffff
-		background-color = #000000
 		saved-params = "is-checked"
 		text = "Block trade requests                       "
 		command = ".Tradetoggle"
@@ -1462,8 +1359,6 @@ window "winSettings"
 		size = 239x20
 		anchor1 = none
 		anchor2 = none
-		text-color = #ffffff
-		background-color = #000000
 		saved-params = "is-checked"
 		text = "Disable receiving flashing event notifications"
 		command = ".EventNotificationstoggle"
@@ -1474,8 +1369,6 @@ window "winSettings"
 		size = 240x24
 		anchor1 = none
 		anchor2 = none
-		text-color = #ffffff
-		background-color = #000000
 		saved-params = "is-checked"
 		text = "Disable receiving monster attack messages  "
 		command = ".MonsterMessagestoggle"
@@ -1486,8 +1379,6 @@ window "winSettings"
 		size = 239x20
 		anchor1 = none
 		anchor2 = none
-		text-color = #ffffff
-		background-color = #000000
 		saved-params = "is-checked"
 		text = "Disable receiving flashing class notifications"
 		command = ".ClassNotificationstoggle"
@@ -1498,8 +1389,6 @@ window "winSettings"
 		size = 126x20
 		anchor1 = none
 		anchor2 = none
-		text-color = #ffffff
-		background-color = #000000
 		saved-params = "is-checked"
 		text = "Disable Housechat"
 		command = ".Housechattoggle"
@@ -1510,8 +1399,6 @@ window "winSettings"
 		size = 200x20
 		anchor1 = none
 		anchor2 = none
-		text-color = #ffffff
-		background-color = #000000
 		saved-params = "is-checked"
 		text = "Disable receiving private messages"
 		command = ".PMtoggle"
@@ -1522,8 +1409,6 @@ window "winSettings"
 		size = 96x20
 		anchor1 = none
 		anchor2 = none
-		text-color = #ffffff
-		background-color = #000000
 		saved-params = "is-checked"
 		text = "Disable OOC"
 		command = ".OOCtoggle"
