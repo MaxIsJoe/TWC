@@ -929,7 +929,6 @@ mob/Player
 		else if(Gender=="Male")
 			gender = MALE
 		Resort_Stacking_Inv()
-		resetSettings()
 		if(StatPoints<1)verbs.Remove(/mob/Player/verb/Use_Statpoints)
 		shieldamount = 0
 		mouse_drag_pointer = MOUSE_DRAG_POINTER
