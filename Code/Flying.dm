@@ -292,7 +292,7 @@ obj
 turf
 	stonefloor
 		icon='turf.dmi'
-		icon_state="blackfloor"
+		icon_state="blackfloor2"
 		name="floor"
 
 mob/Cow
