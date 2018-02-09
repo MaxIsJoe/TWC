@@ -1228,7 +1228,8 @@ obj
 			icon_state = "w"
 			density    = 1
 		Broom3
-			icon       = 'icons.dmi'
+			icon       = 'nimbus_2000_broom.dmi'
+			icon_state = "item"
 			icon_state = "nimbus"
 		Triple_Candle
 			icon       = 'General.dmi'
