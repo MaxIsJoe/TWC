@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 Duncan Fairley
+ * Copyright ï¿½ 2014 Duncan Fairley
  * Distributed under the GNU Affero General Public License, version 3.
  * Your changes must be made public.
  * For the full license text, see LICENSE.txt.
@@ -617,7 +617,7 @@ obj/items/Whoopie_Cushion
 		Fart(sitter)
 			hearers() << "<span style=\"color:#FD857D; font-size:3;\"><b>A loud fart is heard from [sitter]'s direction.</b></span>"
 			spawn _SoundEngine(pick(farts_sounds), src , range = 5, volume=90)
-			del(src)
+			loc = null
 	Click()
 		if(src in usr)
 			hearers() << "[usr] sets a [src]."
@@ -634,6 +634,10 @@ obj/items/Whoopie_Cushion
 		. = ..()
 
 		return isset ? 0 : .
+
+	Crossed(mob/Player/p)
+		if(isset && isplayer(p))
+			Fart(p)
 
 obj/items/scroll
 	icon = 'Scroll.dmi'
