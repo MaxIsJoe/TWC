@@ -61,3 +61,5 @@
 #if HALLOWEEN
 WorldData/var/tmp/list/waterColors = list()
 #endif
+
+obj/custom // used for defining custom objects with { } constructor
