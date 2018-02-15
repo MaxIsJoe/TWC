@@ -59,7 +59,10 @@ mob
 				new /StatusEffect/UsedMeditate(src,10)
 				overlays+=/image/meditate
 				hearers()<<"<span style=\"color:red;\">[src] meditates.</span>"
-				var/maxMP = MMP + extraMMP
+				sleep(50)
+				overlays-=/image/meditate
+
+				var/maxMP = MMP
 				MP = min(maxMP, MP + maxMP*0.8)
 				updateHPMP()
 
