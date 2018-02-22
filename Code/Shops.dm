@@ -822,7 +822,6 @@ proc/RandomizeShop()
 		items -= path
 
 
-// stock
 obj/shopStand
 
 	mouse_opacity      = 2
@@ -832,10 +831,15 @@ obj/shopStand
 		artifactPrice = 0
 		goldPrice = 0
 		item
+		stock
 
 	Click()
 		if(src in oview(3))
 			var/mob/Player/p = usr
+
+			if(stock==0)
+				p << errormsg("Out of stock.")
+				return
 
 			var/ScreenText/s = new(p, src)
 			var/gold/gPrice = new(bronze=goldPrice)
@@ -869,6 +873,8 @@ obj/shopStand
 
 				new item (p)
 				p << infomsg(txt)
+
+				if(stock) stock--
 
 		else
 			..()
