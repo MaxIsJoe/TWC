@@ -139,7 +139,7 @@ var/Weather/weather
 
 proc/init_weather()
 	weather = new()
-	scheduler.schedule(new/Event/Weather, world.tick_lag * 1)
+	scheduler.schedule(new/Event/Weather, 1)
 
 obj/cloud
 	icon  = 'clouds.dmi'
