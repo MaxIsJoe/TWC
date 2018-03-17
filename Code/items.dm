@@ -2424,14 +2424,18 @@ arena_round
 					if("Hufflepuff")
 						worldData.housepointsGSRH[4] += amount
 obj/clanpillar
-	var/HP = 50
-	var/MHP = 50
 	density = 0
 	invisibility = 101
-	var/clan = "Auror"
 	name = "Peace headquarters"
 	icon = 'clanpillar.dmi'
 	icon_state = "Auror"
+
+	var
+		HP = 50
+		MHP = 50
+		clan = "Auror"
+		tmp/obj/healthbar/hpbar
+
 	proc
 		Death_Check(mob/Player/attacker)
 			if(HP<1)
@@ -2446,13 +2450,19 @@ obj/clanpillar
 
 				density = 0
 				invisibility = 100
+				hpbar.invisibility = 100
 				spawn() respawn_count()
+			else
+				var/percent = HP / MHP
+				hpbar.Set(percent, src)
 			..()
 		enable(MHP2)
 			density = 1
 			invisibility = 0
 			MHP = MHP2
 			HP = MHP
+
+			hpbar = new(src)
 
 			for(var/mob/Player/M in Players)
 				if(clan == "Deatheater" && M.getRep() < -100)
@@ -2462,6 +2472,8 @@ obj/clanpillar
 		disable()
 			density = 0
 			invisibility = 100
+			hpbar.loc = null
+			hpbar = null
 		respawn_count()
 			spawn()
 				if(clanwars)
@@ -2475,6 +2487,7 @@ obj/clanpillar
 				if(!clanwars) return
 				density = 1
 				invisibility = 0
+				hpbar.invisibility = 0
 				HP = MHP
 
 				if(clanwars)
