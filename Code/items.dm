@@ -3284,7 +3284,7 @@ obj/items/magic_stone
 			p << errormsg("You can only use this outside.")
 			return
 		p.MP -= 3000
-		p.updateHPMP()
+		p.updateMP()
 
 		if(inUse) return
 		inUse = TRUE
