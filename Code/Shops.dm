@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 Duncan Fairley
+ * Copyright ï¿½ 2014 Duncan Fairley
  * Distributed under the GNU Affero General Public License, version 3.
  * Your changes must be made public.
  * For the full license text, see LICENSE.txt.
@@ -39,65 +39,6 @@ proc/announcemsg(T as text)
 	return "<span style=\"color:#27BBF5; font-size:3;\"><b>[T]</b></span>"
 proc/infomsg(T as text)
 	return "<span style=\"color:#27BBF5;\">[T]</span>"
-
-mob/TalkNPC/quest/Tammie
-	icon_state = "tammie"
-	questPointers = "Demonic Ritual"
-	Talk()
-		set src in oview(3)
-		..()
-		var/mob/Player/p = usr
-		var/questPointer/pointer = p.questPointers["Demonic Ritual"]
-		var/obj/selecteditem
-		var/selectedprice
-		var/gold/g = new(usr)
-		switch(input("Tom: Welcome to the Leaky Cauldron. What do ya wanna do?","Tom")as null|anything in list("Shop","Talk"))
-			if("Talk")
-				if(pointer)
-					if(pointer.stage)
-						if(p.checkQuestProgress("Tammie"))
-							p << npcsay("Tammie: Wow, I can't believe you went and killed all those little innocent cute rats.")
-					else
-						p << npcsay("Tammie: Did you know there's a ritual that makes you stronger, apparently it involves gathering demonic essences, I wonder how you do that, maybe you have to kill a demonic creature.")
-						p.startQuest("Demonic Ritual")
-				else
-					p << npcsay("Tammie : You Are Evil..")
-			if("Shop")
-				switch(input("What do you need?","Tammie")as null|anything in list("Ale","A slice of Pie","Cooked Meat","Cheese","Sundae","Fortune Cookie","Fish","Bread"))
-					if("Ale")
-						if(p.Year in list("1st Year","2nd Year","3rd Year",""))
-							p << npcsay("Tammie: I am sorry.. but your not old enough to drink!")
-						else
-							selecteditem = /obj/maxfood/Ale
-							selectedprice = 30
-					if("A slice of Pie")
-						selecteditem = /obj/maxfood/Pie
-						selectedprice = 65
-					if("Cheese")
-						selecteditem = /obj/maxfood/Cheese
-						selectedprice = 25
-					if("Sundae")
-						selecteditem = /obj/maxfood/Sundae
-						selectedprice = 40
-					if("Fortune Cookie")
-						selecteditem = /obj/maxfood/fortune_cookie
-						selectedprice = 70
-					if("Fish")
-						selecteditem = /obj/maxfood/Fish
-						selectedprice = 100
-					if("Bread")
-						selecteditem = /obj/maxfood/Bread
-						selectedprice = 10
-				g = new(usr)
-				if(!g.have(selectedprice))
-					usr << npcsay("Tammie: I am sorry, that's not enough.. - it's [selectedprice]g.")
-				else
-					g.change(usr, bronze=-selectedprice)
-					worldData.ministrybank += worldData.taxrate*selectedprice/100
-					new selecteditem(usr)
-					usr << npcsay("Tammie : Enjoy your food!")
-					usr:Resort_Stacking_Inv()
-
 
 mob/Tom_
 	icon = 'NPCs.dmi'
