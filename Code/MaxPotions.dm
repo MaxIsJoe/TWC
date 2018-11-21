@@ -249,7 +249,7 @@ client
 
 /* Code Above adds the kit to a list when set up and placed on a desk in front of you or the closest in your view
 When you step away or logout the Kit is deleted and removed with you. */
-=======
+
 obj/maxpotions
 	verb
 		Drop()
