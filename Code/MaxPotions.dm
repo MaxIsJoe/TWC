@@ -260,6 +260,7 @@ obj/maxpotions
 			hearers()<< "<i>[usr] grabs the [src].</i>"
 			Move(usr)
 	Health_Potion_Small
+		name = "A Small Blood-Replenishing Potion"
 		icon = 'Food.dmi'
 		icon_state = "food16"
 		verb
@@ -274,6 +275,7 @@ obj/maxpotions
 				if(usr.HP >= maxHP)
 					usr << "<font color=red>You don't feel like drinking it right now.."
 	Health_Potion_Medium
+		name = "A Medium Blood-Replenishing Potion"
 		icon = 'Food.dmi'
 		icon_state = "food16"
 		verb
@@ -290,6 +292,7 @@ obj/maxpotions
 
 
 	Health_Potion_Large
+		name = "Tears of Life"
 		icon = 'Food.dmi'
 		icon_state = "food16"
 		verb
@@ -304,6 +307,7 @@ obj/maxpotions
 				if(usr.HP >= maxHP)
 					usr << "<font color=red>You don't feel like drinking it right now.."
 	Health_Potion_Special
+		name = "Elixir of Life"
 		icon = 'Food.dmi'
 		icon_state = "food16"
 		verb
@@ -323,6 +327,7 @@ obj/maxpotions
 					sleep(meditateDelay)
 				sleep(meditateWait)
 	Mana_Potion_Small
+		name = "Pepperup Potion"
 		icon = 'FoodMax.dmi'
 		icon_state = "FoodAle"
 		verb
@@ -337,6 +342,7 @@ obj/maxpotions
 				if(usr.MP >= maxMP)
 					usr << "<font color=red>You don't feel like drinking anything right now.."
 	ManaPotion_Medium
+		name = "Girding Potion"
 		icon = 'FoodMax.dmi'
 		icon_state = "FoodAle"
 		verb
@@ -351,6 +357,7 @@ obj/maxpotions
 				if(usr.MP >= maxMP)
 					usr << "<font color=red>You don't feel like drinking anything right now.."
 	Mana_Potion_Large
+		name = "Invigoration Draught"
 		icon = 'FoodMax.dmi'
 		icon_state = "FoodAle"
 		verb
@@ -365,6 +372,7 @@ obj/maxpotions
 				if(usr.MP >= maxMP)
 					usr << "<font color=red>You don't feel like drinking anything right now.."
 	Mana_Potion_Speical
+		name = "Tears of Light"
 		icon = 'FoodMax.dmi'
 		icon_state = "FoodAle"
 		verb
