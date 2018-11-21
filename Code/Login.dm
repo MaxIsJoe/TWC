@@ -1133,7 +1133,49 @@ mob/Player
 										if(!door)return
 										door.door = 0
 										view(door) << "<i>You hear the door lock.</i>"
+							if(findtext(t,"I award",1))
+								if(usr.Gm)   ////Checks to see if  the user is a GM
+									var/pointsbeing_awarded = num2text(t)
+									var/houseselected = copytext (t,1)   /// Copys text  of house  selecteed
+									var/housenum = 0
+									pointsbeing_awarded = copytext(t,8, 11)
+									if(findtext(houseselected,"Gryffindor",1))  //Checks to see if gryffindor was said
+										housenum = 1
+										worldData.housepointsGSRH[housenum] += text2num(pointsbeing_awarded)
+										Players << "\red[pointsbeing_awarded] points have been added to Gryffindor!"   //Assigns points if all critereia are met
+									if(findtext(houseselected,"Slytherin",1))
+										housenum = 2
+										worldData.housepointsGSRH[housenum] += text2num(pointsbeing_awarded)
+										Players << "\red[pointsbeing_awarded] points have been added to Slytherin!"
+									if(findtext(houseselected,"Ravenclaw",1))
+										housenum = 3
+										worldData.housepointsGSRH[housenum] += text2num(pointsbeing_awarded)
+										Players << "\red[pointsbeing_awarded] points have been added to Ravenclaw!"
+									if(findtext(houseselected,"Hufflepuff",1))
+										housenum = 4
+										worldData.housepointsGSRH[housenum] += text2num(pointsbeing_awarded)
+										Players << "\red[pointsbeing_awarded] points have been added to Hufflepuff!"
+
+
+
 							switch(lowertext(t))
+
+									/*if(isnum(pointsbeing_awarded))
+										if(housefound =="Gryffindor")
+											alert("[pointsbeing_awarded] to [housefound]")
+											return
+										if(housefound =="Slytherin")
+											alert(" [pointsbeing_awarded] to [housefound]")
+											return
+
+										if(housefound =="Ravenclaw")
+											alert(" [pointsbeing_awarded] to [housefound]")
+											return
+
+			*/
+
+
+
 								if("colloportus")
 									if(src.Gm)
 										sleep(20)

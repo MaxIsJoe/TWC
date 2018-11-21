@@ -189,7 +189,67 @@ obj/maxfood
 					usr << "<font color=red>You don't feel like eating anything right now.."
 
 
+obj
+	Potions_Kit
+		icon ='items.dmi'
+		icon_state="cabinet"
+		layer = 3
+		verb
 
+
+			Get()
+				set src in oview(1)
+				src.loc = usr
+			set_up()
+				var/number = 0
+				var/obj/Desk/O
+				if(usr.Kit.len == 1) return
+				for(O in view(1,usr.loc))
+					if(O)
+						if(number) break
+						var/obj/X= new/obj/Potions_Kit(O.loc)
+						usr.Kit.Add(X)
+						O.owner = usr.name
+						number += 1
+						usr.MK = 1
+						usr <<"<font color = green> You setup your cauldron on the nearest table"
+					else
+						usr <<"<font color = red> You don't see a Desk to setup your cauldron on"
+
+
+
+
+mob
+	var
+		MK
+
+	var/list/Kit = list()
+
+
+
+client
+	Del()
+		var/obj/Potions_Kit/O
+		if(usr.Kit.len == 1) //////
+			for(O in usr.Kit)
+				usr.Kit -= O
+				del(O)
+	..()
+	Move(loc,dir)
+		var/obj/Potions_Kit/O
+		if(usr.Kit.len == 1)
+			for(O in usr.Kit)
+				usr.Kit -= O
+				del(O)
+
+			usr <<" as you step away your Potion Kit dissapears."
+		..()
+
+
+
+/* Code Above adds the kit to a list when set up and placed on a desk in front of you or the closest in your view
+When you step away or logout the Kit is deleted and removed with you. */
+=======
 obj/maxpotions
 	verb
 		Drop()
@@ -325,6 +385,3 @@ obj/maxpotions
 				sleep(meditateWait)
 				overlays-=/image/meditate
 				meditateWait = 50
-
-
-
