@@ -284,7 +284,7 @@ obj/maxpotions
 				var/maxHP = usr.MHP + usr.extraMHP
 				if(usr.HP < maxHP)
 					EatMessage(src)
-					usr.HP += 850
+					usr.HP += 650
 					usr.updateHPMP()
 					del src
 				if(usr.HP >= maxHP)
