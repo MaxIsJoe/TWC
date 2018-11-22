@@ -37,6 +37,8 @@ var/list/FemaleCoughSounds = list('f_cougha.ogg',
 var/list/MaleCoughSounds = list('m_cougha.ogg',
 	                     	'm_coughb.ogg',
 	                     	'm_coughc.ogg')
+var/FemaleSneeze = 'f_sneeze.ogg'
+var/MaleSneeze = 'm_sneeze.ogg'
 /*
 var/sound_environment = 0
 mob/verb/SetEnvironment(new_env as anything in environments)
