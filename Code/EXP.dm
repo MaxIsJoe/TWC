@@ -114,6 +114,7 @@ obj
 				var/hudobj/reading/R = new(null, p.client, null, 1)
 				p.readbooks = 1
 				p << infomsg("You begin reading.")
+				spawn _SoundEngine(pick(PageSounds), usr , range = 5, volume=90)
 				spawn(15)
 					while(p && p.readbooks > 0 && get_dist(src, p) <= 1)
 						var/exp  = get_exp(p.level)
