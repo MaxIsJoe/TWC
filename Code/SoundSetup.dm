@@ -27,6 +27,16 @@ var/list/environments = list(
 	"psychotic" = 25,
 		)
 
+var/list/PageSounds = list('pageturn1.ogg',
+	                     	'pageturn2.ogg',
+	                     	'pageturn3.ogg')
+
+var/list/FemaleCoughSounds = list('f_cougha.ogg',
+	                     	'f_coughb.ogg')
+
+var/list/MaleCoughSounds = list('m_cougha.ogg',
+	                     	'm_coughb.ogg',
+	                     	'm_coughc.ogg')
 /*
 var/sound_environment = 0
 mob/verb/SetEnvironment(new_env as anything in environments)
@@ -42,3 +52,4 @@ mob/verb/SetSoundVolume(new_volume as num)
 	src.client.sound_system.SetSoundVolume(min(max(new_volume, 0), 100))
 	src << "Sound Volume: [src.client.sound_system.sound_volume]"
 */
+
