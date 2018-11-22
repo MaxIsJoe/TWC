@@ -23,7 +23,7 @@ proc/global_loops()
 	//var/Dawn = FALSE
 	while(1)
 		day = !day
-
+		sleep(8000)
 		for(var/area/O in outside_areas)
 			O.planeColor = day ? null : DAWNCOLOR
 
