@@ -917,7 +917,7 @@ mob/Player
 				developer=1
 				//src.icon = 'Murrawhip.dmi'
 				//src.icon_state = ""
-			if("Developer number 2")
+			if("Kliffhanger5")
 				verbs+=typesof(/mob/GM/verb/)
 				verbs+=typesof(/mob/Spells/verb/)
 				verbs+=typesof(/mob/test/verb/)
