@@ -30,6 +30,8 @@
 #define FILE_DIR "Sound/sfx/doors"
 #define FILE_DIR "Sound/sfx/emotes"
 #define FILE_DIR "Sound/sfx/musicbox"
+#define FILE_DIR "Sound/sfx/Potions"
+#define FILE_DIR "Sound/sfx/Quests"
 #define FILE_DIR "Sound/sfx/teleports"
 #define FILE_DIR "Triwizard"
 // END_FILE_DIR
