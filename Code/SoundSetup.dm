@@ -37,8 +37,22 @@ var/list/FemaleCoughSounds = list('f_cougha.ogg',
 var/list/MaleCoughSounds = list('m_cougha.ogg',
 	                     	'm_coughb.ogg',
 	                     	'm_coughc.ogg')
+
+var/list/FemaleYawnSounds = list('female_yawn1.ogg',
+	                     	'female_yawn2.ogg')
+
+var/list/MaleYawnSounds = list('male_yawn1.ogg',
+	                     	'male_yawn2.ogg')
+
 var/FemaleSneeze = 'f_sneeze.ogg'
 var/MaleSneeze = 'm_sneeze.ogg'
+var/ThroatclearMale = 'throatclear_male.ogg'
+var/ThroatclearFemale = 'throatclear_female.ogg'
+var/SighMale = 'sigh_male.ogg'
+var/SighFemale = 'sigh_female.ogg'
+var/ManLaugh = 'manlaugh.ogg'
+var/WomenLaugh = 'womanlaugh.ogg'
+
 /*
 var/sound_environment = 0
 mob/verb/SetEnvironment(new_env as anything in environments)
