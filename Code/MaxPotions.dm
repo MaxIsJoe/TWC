@@ -188,15 +188,13 @@ obj/maxfood
 				if(usr.MP >= maxMP)
 					usr << "<font color=red>You don't feel like eating anything right now.."
 
-
+/*
 obj
 	Potions_Kit
 		icon ='items.dmi'
 		icon_state="cabinet"
 		layer = 3
 		verb
-
-
 			Get()
 				set src in oview(1)
 				src.loc = usr
@@ -215,7 +213,6 @@ obj
 						usr <<"<font color = green> You setup your cauldron on the nearest table"
 					else
 						usr <<"<font color = red> You don't see a Desk to setup your cauldron on"
-
 
 
 
@@ -244,7 +241,7 @@ client
 
 			usr <<" as you step away your Potion Kit dissapears."
 		..()
-
+*/
 
 
 /* Code Above adds the kit to a list when set up and placed on a desk in front of you or the closest in your view
