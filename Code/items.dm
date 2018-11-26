@@ -2794,7 +2794,7 @@ obj/items/lamps
 			if(S)
 				S.Deactivate()
 			else
-				S = new effect (usr, seconds, src)
+				S = new effect (usr, seconds, "Lamp", src)
 		else
 			..()
 
