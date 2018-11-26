@@ -810,6 +810,7 @@ obj
 		post_init = 1
 
 		MapInit()
+			if(!post_init || !loc) return
 			if(density)
 				loc.density = 1
 			if(opacity)
