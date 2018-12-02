@@ -2141,6 +2141,9 @@ obj/items/wearable/title
 	Undead
 		title = "Undead"
 		name  = "Title: Undead"
+	Frozen
+		title = "Frozen"
+		name  = "Title: Frozen"
 
 mob/Bump(obj/ball/B)
 	if(istype(B,/obj/ball))
