@@ -44,6 +44,11 @@ var/list/FemaleYawnSounds = list('female_yawn1.ogg',
 var/list/MaleYawnSounds = list('male_yawn1.ogg',
 	                     	'male_yawn2.ogg')
 
+var/list/claps = list('clap1.ogg',
+	                  'clap2.ogg',
+	                  'clap3.ogg',
+	                  'clap4.ogg')
+
 var/FemaleSneeze = 'f_sneeze.ogg'
 var/MaleSneeze = 'm_sneeze.ogg'
 var/ThroatclearMale = 'throatclear_male.ogg'
