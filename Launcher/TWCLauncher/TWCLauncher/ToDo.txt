@@ -1,0 +1,3 @@
+-There should be a servers page that generates Buttons and info of online servers so players can accses these servers from the launcher
+-Add the "Update Launcher" functionality 
+-Improve the desgin abit

@@ -200,6 +200,7 @@ client
 
 mob/Player
 	var/tmp/image/reflection
+	var/tmp/image/playershadow
 
 	proc
 		CleanReflection()

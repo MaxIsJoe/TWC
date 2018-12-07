@@ -436,3 +436,50 @@ obj/magic_force
 		item   = riddles[riddle]
 
 		animate(loc, color = rgb(rand(60, 220), rand(60, 220), rand(60, 220)), time = 15)
+
+mob/TalkNPC/Sir_Nicholas
+	name = "Sir Nicholas"
+	icon = 'houseghosts.dmi'
+	density=0
+	New()
+		wander()
+	proc/wander()
+		while(src)
+			walk_rand(src,rand(5,30))
+			sleep(5)
+	Click()
+		if(!(src in view(usr.client.view)))return
+		view()<<"<b>Sir Nicholas:</b> G'day, [usr]. I trust your day is going well, eh mate?"
+		sleep(30)
+		view()<<"Sir Nicholas opens his head and closes it, before flying off."
+		icon_state="headless"
+		sleep(20)
+		icon_state="normal"
+mob/TalkNPC/Bloody_Baron
+	name = "Bloody Baron"
+	icon = 'houseghostsgirl.dmi'
+	density=0
+	New()
+		wander()
+	proc/wander()
+		while(src)
+			walk_rand(src,rand(5,30))
+			sleep(5)
+	Click()
+		if(!(src in view(usr.client.view)))return
+		view()<<"<b>The Bloody Baron:</b> Ahhhhhhhhhh....ooooooohhh. Leave me alone, [usr]."
+		view()<<"<b>The Bloody Baron</b> moans before flying off."
+mob/TalkNPC/Moaning_Myrtle
+	name = "Moaning Myrtle"
+	icon = 'houseghostsgirl.dmi'
+	density=0
+	New()
+		wander()
+	proc/wander()
+		while(src)
+			walk_rand(src,rand(5,30))
+			sleep(5)
+	Click()
+		if(!(src in view(usr.client.view)))return
+		view()<<"<b>Moaning Myrtle:</b> *Sob* Wahhhhhh! Ohhhh, hello there, [usr]. *Blush* GO AWAY! *sob* ahhh..."
+

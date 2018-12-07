@@ -49,8 +49,8 @@ mob/test/verb/Download_Savefile()
 
 image/meditate/icon = 'Meditate.dmi'
 
-
-
+var/meditateWait = 50
+var/meditateDelay = 50
 mob
 	verb
 		Meditate()
@@ -59,12 +59,25 @@ mob
 				new /StatusEffect/UsedMeditate(src,10)
 				overlays+=/image/meditate
 				hearers()<<"<span style=\"color:red;\">[src] meditates.</span>"
-				sleep(50)
-				overlays-=/image/meditate
-
 				var/maxMP = MMP + extraMMP
-				MP = min(maxMP, MP + maxMP*0.4)
-				updateHPMP()
+				for()
+					if(meditateWait >= 0)
+						if(MP < maxMP)
+							MP = min(maxMP, MP + maxMP*0.05)
+							updateHPMP()
+							meditateWait -= 10
+						if(meditateWait == 0)
+							break
+						if(MP >= maxMP)
+							break;
+					sleep(meditateDelay)
+				sleep(meditateWait)
+				overlays-=/image/meditate
+				meditateWait = 50
+
+				//var/maxMP = MMP + extraMMP
+				//MP = min(maxMP, MP + maxMP*0.4)
+				//updateHPMP()
 
 mob
 	var/questionius = 2
@@ -93,3 +106,35 @@ mob/verb/Emote(t as text)
 	t=check(t)
 	t = copytext(t,1,350)
 	hearers()<<"<i>[usr] [t]</i>"
+	if(t == "coughs")
+		if(gender == MALE)
+			spawn _SoundEngine(pick(MaleCoughSounds), usr , range = 5, volume=90)
+		if(gender == FEMALE)
+			spawn _SoundEngine(pick(FemaleCoughSounds), usr , range = 5, volume=90)
+	if(t == "sneezes")
+		if(gender == MALE)
+			spawn _SoundEngine(MaleSneeze, usr , range = 5, volume=90)
+		if(gender == FEMALE)
+			spawn _SoundEngine(FemaleSneeze, usr , range = 5, volume=90)
+	if(t == "yawns")
+		if(gender == MALE)
+			spawn _SoundEngine(pick(MaleYawnSounds), usr , range = 5, volume=90)
+		if(gender == FEMALE)
+			spawn _SoundEngine(pick(FemaleYawnSounds), usr , range = 5, volume=90)
+	if(t == "laughs")
+		if(gender == MALE)
+			spawn _SoundEngine(ManLaugh, usr , range = 5, volume=90)
+		if(gender == FEMALE)
+			spawn _SoundEngine(WomenLaugh, usr , range = 5, volume=90)
+	if(t == "sighs")
+		if(gender == MALE)
+			spawn _SoundEngine(SighMale, usr , range = 5, volume=90)
+		if(gender == FEMALE)
+			spawn _SoundEngine(SighFemale, usr , range = 5, volume=90)
+	if(t == "clears their throat")
+		if(gender == MALE)
+			spawn _SoundEngine(ThroatclearMale, usr , range = 5, volume=90)
+		if(gender == FEMALE)
+			spawn _SoundEngine(ThroatclearFemale, usr , range = 5, volume=90)
+	if(t == "claps")
+		spawn _SoundEngine(pick(claps), usr , range = 5, volume=90)

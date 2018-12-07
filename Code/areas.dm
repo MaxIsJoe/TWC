@@ -199,6 +199,7 @@ area
 		PorchLeft
 		PorchRight
 		Hogwarts_Grounds
+		Hogwarts_CourtYard
 		Quidditch
 			icon         = 'black50.dmi'
 			icon_state   = "white"
@@ -239,6 +240,8 @@ area
 		Gryffindor_Common_Room
 		Dungeons
 		Potions
+		Courtyard_Enter
+		Courtyard_Exit
 			antiTeleport = 1
 		Hospital_Wing
 			Exited(atom/movable/Obj, atom/newloc)

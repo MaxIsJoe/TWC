@@ -20,8 +20,21 @@ proc/global_loops()
 
 
 	var/day = TRUE
+	//var/Dawn = FALSE
 	while(1)
 		day = !day
+		sleep(8000)
+		for(var/area/O in outside_areas)
+			O.planeColor = day ? null : DAWNCOLOR
+
+		for(var/mob/Player/p in Players)
+			if(!p.loc) continue
+
+			var/area/a = p.loc.loc
+			if(istype(a, /area/outside) || istype(a, /area/newareas/outside))
+				p.Interface.SetDarknessColor()
+
+		sleep(700)
 
 		for(var/area/O in outside_areas)
 			O.planeColor = day ? null : NIGHTCOLOR
@@ -33,7 +46,19 @@ proc/global_loops()
 			if(istype(a, /area/outside) || istype(a, /area/newareas/outside))
 				p.Interface.SetDarknessColor()
 
-		sleep(9000)
+		sleep(8000)
+
+		for(var/area/O in outside_areas)
+			O.planeColor = day ? null : DAWNCOLOR
+
+		for(var/mob/Player/p in Players)
+			if(!p.loc) continue
+
+			var/area/a = p.loc.loc
+			if(istype(a, /area/outside) || istype(a, /area/newareas/outside))
+				p.Interface.SetDarknessColor()
+
+		sleep(700)
 
 Weather
 	var/list/clouds = list()
@@ -359,7 +384,7 @@ interface
 
 		if(!lightStates)
 			var/area/a = parent.loc.loc
-			animate(darkness, color = a.planeColor, time = 5)
+			animate(darkness, color = a.planeColor, time = 8)
 
 
 obj/light
