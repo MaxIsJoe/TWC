@@ -503,6 +503,8 @@ area
 		HogsmeadeSafeZone
 		Bank
 		TomsCellar
+		SlayerGuild
+			antiTheft = 1
 	hogwarts
 		DuelArena
 		CoS
