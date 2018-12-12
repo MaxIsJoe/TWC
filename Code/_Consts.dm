@@ -46,6 +46,9 @@
 
 #define POTIONS_AMOUNT 60
 
+// passives
+#define WATERWALK 1
+
 
 #define EARTH 1
 #define FIRE  2
