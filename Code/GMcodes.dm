@@ -1,5 +1,5 @@
 /*
- * Copyright © 2014 Duncan Fairley
+ * Copyright ï¿½ 2014 Duncan Fairley
  * Distributed under the GNU Affero General Public License, version 3.
  * Your changes must be made public.
  * For the full license text, see LICENSE.txt.
@@ -1898,7 +1898,7 @@ world/New()
 		if(B.icon_state == "Top") Map2Aurorbeds.Add(B)
 	for(var/turf/T in locate(/area/arenas/MapThree/WaitingArea))
 		MapThreeWaitingAreaTurfs.Add(T)
-	world.status = "<b><span style=\"font-family:'Comic Sans MS'; color:black;\">Server: <span style=\"color:blue;\">Max's Server</span> || Version: <span style=\"color:red;\">[VERSION]</span></span></b>"
+	world.status = "<b><span style=\"font-family:'Comic Sans MS'; color:black;\">Server: <span style=\"color:blue;\">Main Server</span> || Version: <span style=\"color:red;\">[VERSION].[SUB_VERSION]</span></span></b>"
 	for(var/mob/TalkNPC/M in world)
 		M.GenerateNameOverlay(255,255,255)
 
