@@ -27,9 +27,6 @@ area
 		if(antiFly && isplayer(Obj))
 			Obj:nofly()
 
-image/dropGlow
-	icon = 'drop_glows.dmi'
-
 obj/items
 	var
 		dropable      = 1
@@ -41,6 +38,7 @@ obj/items
 
 		stack     = 1
 		max_stack = 0
+		rarity    = 1
 
 	mouse_over_pointer = MOUSE_HAND_POINTER
 
@@ -221,27 +219,18 @@ obj/items
 			antiTheft = 1
 			owner     = ownerCkey
 
-			var/list/dropColors = list(/obj/items/key               = "#0e0",
-									   /obj/items/key/wizard_key    = "#3366ff",
-									   /obj/items/key/blood_key     = "#ff9900",
-									   /obj/items/key/pentakill_key = "#3366ff",
-									   /obj/items/key/sunset_key    = "#ff9900",
-									   /obj/items/key/summer_key    = "#ff9900",
-									   /obj/items/key/winter_key    = "#ff9900",
-									   /obj/items/key/prom_key      = "#ff9900",
-									   /obj/items/key/pet_key       = "#ff9900")
+			var/c
+			switch(rarity)
+				if(1)
+					c = "#0e0"
+				if(2)
+					c = "#00a5ff"
+				if(3)
+					c = "#ffa500"
 
-			var/c = dropColors[type]
-			if(!c)
-				c = dropColors[parent_type]
 
 			if(c)
-				var/image/dropGlow/i = new
-				var/list/t = splittext("[type]", "/")
-				var/s = t[t.len - 1]
-				i.icon_state = s
-				i.color = c
-				underlays += i
+				filters = filter(type="outline", size=1, color=c)
 
 			sleep(protection)
 
@@ -252,7 +241,7 @@ obj/items
 				else
 					antiTheft = 0
 					owner = null
-					underlays = list()
+					filters = null
 
 WorldData/var/tmp/list/dropColors = list(/obj/items/key = "#0e0")
 
@@ -269,7 +258,7 @@ obj/items/verb/Take()
 
 	if(antiTheft)
 		antiTheft = 0
-		underlays = list()
+		filters = null
 
 	viewers() << infomsg("[usr] takes \the [src.name].")
 
@@ -1272,6 +1261,7 @@ obj/items/wearable/hats/teal_earmuffs
 obj/items/wearable/orb
 
 	useTypeStack = /obj/items/wearable/orb
+	rarity = 2
 
 	desc = "When equipped, your equipped wand will earn experience and level up by killing monsters."
 
@@ -2604,6 +2594,7 @@ obj/items/easterbook
 	icon='Books.dmi'
 	icon_state="easter"
 	desc = "Who would of thought the Easter bunny wrote a book..."
+	rarity = 2
 	Click()
 		if(src in usr)
 			usr.verbs += /mob/Spells/verb/Shelleh
@@ -2617,6 +2608,7 @@ obj/items/rosesbook
 	icon='Books.dmi'
 	icon_state="roses"
 	desc = "The cover is so pretty!"
+	rarity = 2
 	Click()
 		if(src in usr)
 			usr<<"<b><font color=red><font size=3>You learned Herbificus Maxima."
@@ -2629,6 +2621,7 @@ obj/items/rosesbook
 obj/items/spellbook
 	icon       = 'Books.dmi'
 	icon_state = "spell"
+	rarity = 2
 
 	var
 		spell
@@ -2683,8 +2676,7 @@ obj/items/spellbook
 
 				usr << infomsg("You learned [generic.name].")
 				usr.verbs += spell
-				if(Consume())
-					usr:Resort_Stacking_Inv()
+				Consume()
 
 			sleep(15)
 			animate(usr.client, color = null, time = 10)
@@ -2703,6 +2695,14 @@ obj/items/spellbook
 		icon_state = "chaos"
 		spell = /mob/Spells/verb/Aggravate
 		r = 0.6
+
+	darkmark
+		name = "Book of Loyality"
+		icon_state = "de"
+		r = 0.6
+		g = 0.6
+		b = 0.6
+		spell = /mob/Spells/verb/Morsmordre
 
 	peace
 		name = "Book of Peace: Vol II"
@@ -2724,6 +2724,7 @@ obj/items/stickbook
 	icon='Books.dmi'
 	icon_state="stick"
 	desc = "Remind me why I bought this?"
+	rarity = 2
 	Click()
 		if(src in usr)
 			usr << infomsg("You learned Crapus Sticketh.")
@@ -2735,7 +2736,7 @@ obj/items/stickbook
 obj/items/easter_egg
 	icon='Eggs.dmi'
 	desc="A colored easter egg! How nice!"
-
+	rarity  = 2
 
 	New()
 		..()
@@ -2784,6 +2785,7 @@ obj/egg
 obj/items/artifact
 	icon       = 'trophies.dmi'
 	icon_state = "Ring"
+	rarity     = 3
 
 
 obj/items/lamps
@@ -2797,6 +2799,8 @@ obj/items/lamps
 	max_stack = 1
 	useTypeStack = 1
 	stackName = "Lamps:"
+
+	rarity  = 2
 
 	double_drop_rate_lamp
 		desc    = "Doubles your drop rate."
@@ -3473,6 +3477,7 @@ obj/items
 		stackName = "Chests:"
 
 		useTypeStack = 1
+		rarity     = 2
 
 		var
 			drops
@@ -3656,7 +3661,8 @@ obj/items
 	key
 		icon = 'ChestKey.dmi'
 		icon_state = "master"
-		stackName = "Keys:"
+		stackName  = "Keys:"
+		rarity     = 2
 
 		useTypeStack = 1
 
@@ -4002,14 +4008,17 @@ obj/items/colors
 		reqLevel   = 10
 		icon_state = "purple"
 		projColor  = "#662690"
+		rarity     = 2
 	pink_stone
 		reqLevel   = 10
 		icon_state = "pink"
 		projColor  = "#993f6c"
+		rarity     = 2
 	teal_stone
 		reqLevel   = 10
 		icon_state = "teal"
 		projColor  = "#226666"
+		rarity     = 2
 	orange_stone
 		reqLevel   = 10
 		icon_state = "orange"
@@ -4018,6 +4027,7 @@ obj/items/colors
 		reqLevel   = 15
 		icon_state = "red"
 		projColor  = "blood"
+		rarity     = 2
 
 obj/items/reputation
 	var/rep
@@ -4110,6 +4120,8 @@ obj/items/vault_key
 
 	icon       = 'ChestKey.dmi'
 	icon_state = "master"
+
+	rarity     = 3
 
 	Click()
 		if(src in usr)
@@ -4427,8 +4439,8 @@ obj/items/elite
 
 
 obj/items/wearable/ring
-	bonus = 0
-	desc = "A finely knit scarf designed to keep your neck toasty warm."
+	bonus  = 0
+	rarity = 3
 
 	Equip(var/mob/Player/owner,var/overridetext=0,var/forceremove=0)
 		. = ..(owner)
@@ -4459,8 +4471,8 @@ obj/items/wearable/ring/aetherwalker_ring
 
 
 obj/items/wearable/shield
-	bonus = 0
-	desc = "A finely knit scarf designed to keep your neck toasty warm."
+	bonus  = 0
+	rarity = 3
 
 	Equip(var/mob/Player/owner,var/overridetext=0,var/forceremove=0)
 		. = ..(owner)
@@ -4490,8 +4502,8 @@ obj/items/wearable/shield/slayer
 	passive = SHIELD_SLAYER
 
 obj/items/wearable/sword
-	bonus = 0
-	desc = "A finely knit scarf designed to keep your neck toasty warm."
+	bonus  = 0
+	rarity = 3
 
 	Equip(var/mob/Player/owner,var/overridetext=0,var/forceremove=0)
 		. = ..(owner)
