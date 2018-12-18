@@ -501,6 +501,8 @@ area
 		TomsCellar
 		SlayerGuild
 			antiTheft = 1
+		Artifacts
+			antiTheft = 1
 	hogwarts
 		DuelArena
 		CoS
