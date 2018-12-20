@@ -11,15 +11,20 @@ namespace TWCLauncher
     public partial class MainWindow : Window
     {
 
-        public string version = "0.2\n"; //Launcher Version
+        public string version = "0.3\n"; //Launcher Version
         public bool UpToDate; //Is the Launcher up to date?
         private string fileContent;
+        private string updatepage = "http://forum.wizardschronicles.com/index.php?topic=4389.0";
+        private string getupdatepage;
 
         public MainWindow()
         {
             InitializeComponent();
             SizeToContent = SizeToContent.WidthAndHeight;
             fileContent = new WebClient().DownloadString("https://raw.githubusercontent.com/MaxIsJoe/TWC/MIJ-HostVer/Launcher/TWCLauncher/version.txt"); //Checks if there's a new version or not
+            getupdatepage = new WebClient().DownloadString("https://raw.githubusercontent.com/MaxIsJoe/TWC/MIJ-HostVer/Launcher/TWCLauncher/updatepage.txt");
+            updatepage = getupdatepage;
+            browser.Navigate(new Uri(updatepage));
             VersionLabel.Content = ("Launcher Version : " + version);
             if(fileContent != version) //If there is or isn't a new update do the following
             {
