@@ -402,6 +402,7 @@ mob
 
 area
 	arenas
+		scaleDamage = 4
 		MapTwo
 			Auror/Exit(atom/movable/O)
 				if(ismob(O))
@@ -426,9 +427,11 @@ area
 				else
 					return ..()
 		MapThree
+			scaleDamage = 0
 			WaitingArea
 			PlayArea
 		MapOne
+			scaleDamage = 0
 			selfDamage = 0
 			Gryff/Exit(atom/movable/O)
 				if(ismob(O))
