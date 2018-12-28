@@ -87,6 +87,11 @@
 
 #define GLIDE_SIZE 0
 
+#define MP_REGEN 1
+#define HP_REGEN 2
+#define ANIMAGUS_TICK 4
+#define ANIMAGUS_RECOVER 8
+
 
 #if HALLOWEEN
 WorldData/var/tmp/list/waterColors = list()
