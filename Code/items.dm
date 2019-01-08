@@ -250,8 +250,6 @@ obj/items
 					owner = null
 					filters = null
 
-WorldData/var/tmp/list/dropColors = list(/obj/items/key = "#0e0")
-
 obj/items/Click()
 	if((src in oview(1)) && takeable)
 		Take()
@@ -3742,7 +3740,6 @@ obj/items
 			limited_edition
 				name  = "special summer 2015 chest"
 				drops = "(limited)2015 sum"
-				keyType = /obj/items/key/special_key
 
 		winter_chest
 			icon_state = "blue"
@@ -3753,7 +3750,6 @@ obj/items
 			limited_edition
 				name  = "special winter 2015 chest"
 				drops = "(limited)2015 winter"
-				keyType = /obj/items/key/special_key
 
 		prom_chest
 			icon_state = "pink"
@@ -3763,7 +3759,6 @@ obj/items
 			limited_edition
 				name = "special prom 2015 chest"
 				drops = "(limited)2015 prom"
-				keyType = /obj/items/key/special_key
 
 		blood_chest
 			icon_state = "red"
