@@ -74,7 +74,7 @@
 #include <theodis\priorityqueue\PriorityQueue.dme>
 #include <theodis\quicksort\QuickSort.dme>
 #include "potinf.dmf"
-#include "world.dmp"
+#include "world.dmm"
 #include "Code\_Consts.dm"
 #include "Code\Actionbar.dm"
 #include "Code\Ambience.dm"
@@ -141,6 +141,7 @@
 #include "Code\SQL.dm"
 #include "Code\Statues.dm"
 #include "Code\StatusEffects.dm"
+#include "Code\Summoning.dm"
 #include "Code\swapmaps.dm"
 #include "Code\Teach.dm"
 #include "Code\time.dm"

@@ -3519,7 +3519,7 @@ obj/items/magic_stone
 		circle(mob/Player/p)
 			if(p.loc && p.loc.loc)
 				var/area/a = p.loc.loc
-				if(istype(a, /area/newareas/outside/Desert1) || istype(a, /area/newareas/outside/Desert2) || istype(a, /area/newareas/outside/Desert3))
+				if(istype(a, /area/newareas/outside/Desert))
 					..(p)
 				else
 					p << errormsg("The coin glows, nothing else happens.")
