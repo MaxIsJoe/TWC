@@ -4680,6 +4680,7 @@ obj/items/wearable/ring
 	bonus  = 0
 	socket = 0
 	rarity = 3
+	showoverlay = FALSE
 
 	Equip(var/mob/Player/owner,var/overridetext=0,var/forceremove=0)
 		if(!forceremove && !overridetext && !(src in owner.Lwearing) && world.time - owner.lastCombat <= 100)
@@ -4715,6 +4716,7 @@ obj/items/wearable/shield
 	bonus  = 0
 	socket = 0
 	rarity = 3
+	showoverlay = FALSE
 
 	Equip(var/mob/Player/owner,var/overridetext=0,var/forceremove=0)
 		if(!forceremove && !overridetext && !(src in owner.Lwearing) && world.time - owner.lastCombat <= 100)
@@ -4758,6 +4760,7 @@ obj/items/wearable/sword
 	bonus  = 0
 	socket = 0
 	rarity = 3
+	showoverlay = FALSE
 
 	Equip(var/mob/Player/owner,var/overridetext=0,var/forceremove=0)
 		if(!forceremove && !overridetext && !(src in owner.Lwearing) && world.time - owner.lastCombat <= 100)
@@ -4804,3 +4807,11 @@ obj/items/wearable/sword/wolf
 	desc="10% Chance to gain animagus charge on kill."
 	suffix = "<span style=\"color:#ffa500;\">10% Chance to gain animagus charge on kill.</span>"
 	passive = SWORD_ANIMAGUS
+
+obj/items/wearable/sword/gold
+	icon='Scroll.dmi'
+	icon_state="gold"
+	name="Golden Scroll"
+	desc="20% drop rate bonus."
+	suffix = "<span style=\"color:#ffa500;\">20% drop rate bonus.</span>"
+	dropRate = 20
