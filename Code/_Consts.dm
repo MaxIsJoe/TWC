@@ -14,12 +14,12 @@
 #define ismonster(x) istype(x, /mob/Enemies)
 #define SetSize(s) transform = matrix() * ((s) / iconSize)
 
-#define VERSION "16.70.5d"
+#define VERSION "16.70.6 - devbuild"
 #define SAVEFILE_VERSION 29
 #define VAULT_VERSION 4
 #define lvlcap 650
 #define SWAPMAP_Z 24
-#define WINTER 0
+#define WINTER 1
 #define AUTUMN 0
 #define HALLOWEEN 0
 #define NIGHTCOLOR "#2e3a8c"
