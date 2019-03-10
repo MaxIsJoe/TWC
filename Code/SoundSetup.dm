@@ -49,6 +49,10 @@ var/list/claps = list('clap1.ogg',
 	                  'clap3.ogg',
 	                  'clap4.ogg')
 
+var/list/farts_sounds = list('fart.ogg',
+	                  'fartingmountain.ogg',
+	                  'fartmassive.ogg')
+
 var/FemaleSneeze = 'f_sneeze.ogg'
 var/MaleSneeze = 'm_sneeze.ogg'
 var/ThroatclearMale = 'throatclear_male.ogg'
@@ -57,7 +61,7 @@ var/SighMale = 'sigh_male.ogg'
 var/SighFemale = 'sigh_female.ogg'
 var/ManLaugh = 'manlaugh.ogg'
 var/WomenLaugh = 'womanlaugh.ogg'
-
+var/FartEmote = 'fart.ogg'
 /*
 var/sound_environment = 0
 mob/verb/SetEnvironment(new_env as anything in environments)

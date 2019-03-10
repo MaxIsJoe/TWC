@@ -596,6 +596,7 @@ obj/items/Whoopie_Cushion
 	proc
 		Fart(sitter)
 			hearers() << "<span style=\"color:#FD857D; font-size:3;\"><b>A loud fart is heard from [sitter]'s direction.</b></span>"
+			spawn _SoundEngine(pick(farts_sounds), usr , range = 5, volume=90)
 			del(src)
 	Click()
 		if(src in usr)
