@@ -4848,3 +4848,11 @@ obj/items/wearable/sword/gold
 	desc="20% drop rate bonus."
 	suffix = "<span style=\"color:#ffa500;\">20% drop rate bonus.</span>"
 	dropRate = 20
+
+obj/items/wearable/sword/ghost
+	icon='trophies.dmi'
+	icon_state="ghostblade"
+	name="Ghostblade"
+	desc="Changes all projectiles element to ghost."
+	suffix = "<span style=\"color:#ffa500;\">Your projectiles element will be ghost.</span>"
+	passive = SWORD_GHOST
