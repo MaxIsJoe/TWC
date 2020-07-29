@@ -2225,7 +2225,7 @@ obj/items/wearable/invisibility_cloak
 
 obj/items/wearable/title
 	var/title = ""
-	icon = 'scrolls.dmi'
+	icon = 'Scroll.dmi'
 	icon_state = "title"
 	desc = ""
 
