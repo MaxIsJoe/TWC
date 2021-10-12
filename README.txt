@@ -26,6 +26,8 @@ http://www.byond.com/developer/Deadron.Basecamp
 http://www.byond.com/developer/Rotem12.ColorMatrix
 http://www.byond.com/developer/Foomer/SoundSystem
 
+rust-g from https://github.com/DuncanFairley/rust-g if not using included windows dll. 
+
 Ensure you put the source in a folder named TWC, as your DME name must match the
 name of the folder it's in.
 

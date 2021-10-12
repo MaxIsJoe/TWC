@@ -108,8 +108,7 @@ proc
 			spawn()
 				for(var/c in cw)
 					if(!(c in clanwars_schedule))
-						var/list/l = splittext(c, " - ")
-						add_clan_wars(l[1], l[2])
+						add_clan_wars(c)
 
 		var/list/classes
 		X["AutoClasses"] >> classes
@@ -117,8 +116,7 @@ proc
 			spawn()
 				for(var/class in classes)
 					if(!(class in autoclass_schedule))
-						var/list/l = splittext(class, " - ")
-						add_autoclass(l[1], l[2])
+						add_autoclass(class)
 
 	Save_World()
 		fdel("players/World.sav")
