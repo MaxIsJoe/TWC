@@ -1545,7 +1545,11 @@ obj/items/wearable/wands
 					Equip(owner, 1)
 
 					quality += i
-					bonus = o.bonus|bonus
+
+					var/b = pick(0,1,2)
+					if(o)
+						b |= o.bonus
+					bonus = b|bonus
 
 					Equip(owner, 1)
 
