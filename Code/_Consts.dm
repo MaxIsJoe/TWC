@@ -84,6 +84,9 @@
 #define ANIMAGUS_TICK 4
 #define ANIMAGUS_RECOVER 8
 
+#define DRINK 0
+#define THROW 1
+
 
 #if HALLOWEEN
 WorldData/var/tmp/list/waterColors = list()
