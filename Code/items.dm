@@ -2246,6 +2246,8 @@ obj/items/wearable/title
 	icon_state = "title"
 	desc = ""
 
+	showoverlay = FALSE
+
 	stackName = "Titles:"
 
 	useTypeStack = 1
