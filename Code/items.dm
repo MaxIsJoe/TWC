@@ -3748,6 +3748,7 @@ obj/memory_rune
 			loc.tag = "teleportPoint[name]"
 
 	Snowman_Dungeon
+	Snake_Dungeon
 	Silverblood
 	CoSFloor1
 		name = "CoS Floor 1"
