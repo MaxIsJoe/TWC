@@ -201,7 +201,7 @@ obj/Madame_Pomfrey
 			Heal_Me()
 	verb
 		Heal_Me()
-			if(canUse(usr,needwand=0,cooldown=/StatusEffect/UsedFerulaToHeal))
+			if(canUse(usr,needwand=0,cooldown=/StatusEffect/UsedEpiskey))
 				set src in oview(1)
 				var/mob/Player/p = usr
 
@@ -210,7 +210,7 @@ obj/Madame_Pomfrey
 					return
 
 				p<<"<b><span style=\"color:green;\">Madam Pomfrey:</span><font color=aqua> Episkey [p]!"
-				new /StatusEffect/UsedFerulaToHeal(p,30*p.cooldownModifier)
+				new /StatusEffect/UsedEpiskey(p,20*p.cooldownModifier)
 				p.overlays+=image('attacks.dmi',icon_state="heal")
 
 				p.HP = p.MHP
