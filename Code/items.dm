@@ -3632,6 +3632,7 @@ obj/items/magic_stone
 		tmp/inUse   = FALSE
 		seconds     = 10
 		onlyOutside = 1
+		antiTp = 1
 
 
 	icon = 'trophies.dmi'
@@ -3851,6 +3852,7 @@ obj/items/magic_stone
 	eye
 		name = "death coin"
 		icon_state = "Coin"
+		antiTp = 0
 
 		circle(mob/Player/p)
 			if(p.loc && p.loc.loc)
@@ -3876,7 +3878,7 @@ obj/items/magic_stone
 	proc/effect(mob/Player/p)
 	proc/circle(mob/Player/p)
 
-		if(!canUse(p,cooldown=null,needwand=1,inarena=0,insafezone=0,inhogwarts=0,target=null,mpreq=500,antiTeleport=1))
+		if(!canUse(p,cooldown=null,needwand=1,inarena=0,insafezone=0,inhogwarts=0,target=null,mpreq=500,antiTeleport=antiTp))
 			return
 
 		if(onlyOutside)
