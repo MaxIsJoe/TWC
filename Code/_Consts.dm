@@ -61,6 +61,8 @@
 #define SWORD_GHOST 8192
 #define SWORD_SNAKE 16384
 
+#define BACKPACK_ROWS  12
+#define BACKPACK_COLS  20
 
 
 #define EARTH 1
