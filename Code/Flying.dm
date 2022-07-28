@@ -869,7 +869,7 @@ obj
 
 			MapInit()
 
-				icon_state = "[rand(1,5)]"
+				icon_state = "[rand(1,6)]"
 
 				..()
 
