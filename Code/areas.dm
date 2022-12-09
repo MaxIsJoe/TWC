@@ -509,6 +509,7 @@ area
 		timedProtection = 1
 
 		HogsmeadeSafeZone
+		Museum
 		Bank
 		TomsCellar
 		SlayerGuild
