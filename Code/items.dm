@@ -4793,7 +4793,7 @@ obj/items/colors
 				if(!p.holster.colors) p.holster.colors = list()
 				p.holster.colors += projColor
 
-				if(!p.holster.projColor) p.holster.projColor = projColor
+			//	if(!p.holster.projColor) p.holster.projColor = projColor
 
 				p << infomsg("You added a new <span style=\"color:[projColor == "blood" ? "#a00" : projColor];\">magical color</span> to your equipped holster.")
 
@@ -5893,7 +5893,7 @@ obj/items/wearable/wand_holster
 	max_stack = 0
 
 	var
-		projColor
+		list/selectedColors
 		list/colors
 
 	Equip(var/mob/Player/owner,var/overridetext=0,var/forceremove=0)
