@@ -4935,7 +4935,7 @@ obj/items/colors
 
 			//	if(!p.holster.projColor) p.holster.projColor = projColor
 
-				p << infomsg("You added a new <span style=\"color:[projColor == "blood" ? "#a00" : projColor];\">magical color</span> to your equipped holster.")
+				p << infomsg("You added a new <span style=\"color:[projColor == "blood" ? "#880808" : projColor];\">magical color</span> to your equipped holster.")
 
 				Consume()
 
@@ -4945,7 +4945,7 @@ obj/items/colors
 					return
 
 				if(locate(/obj/wand_desk) in oview(1))
-					p << infomsg("You applied new <span style=\"color:[projColor == "blood" ? "#a00" : projColor];\">magical color</span> to your equipped wand.")
+					p << infomsg("You applied new <span style=\"color:[projColor == "blood" ? "#880808" : projColor];\">magical color</span> to your equipped wand.")
 					p.wand.projColor = projColor
 					Consume()
 		else
