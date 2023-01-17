@@ -2545,10 +2545,6 @@ obj/items/wearable/scarves/sunset_scarf
 	icon = 'scarf_sunset.dmi'
 obj/items/wearable/scarves/blood_scarf
 	icon = 'scarf_blood.dmi'
-
-obj/items/wearable/scarves/lucifer_scarf
-	icon = 'scarf_lucifer.dmi'
-	name = "Lucifer's Scarf"
 obj/items/wearable/scarves/lucifer2_scarf
 	icon = 'scarf_lucifer2.dmi'
 	name = "Lucifer's Scarf"
