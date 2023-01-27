@@ -1725,7 +1725,7 @@ obj/items/wearable/brooms/levitate
 	icon_state = "raven"
 	showoverlay = FALSE
 
-	protection = 6
+	protection = 10
 	speed = 4
 
 obj/items/wearable/brooms/cleansweep_seven
