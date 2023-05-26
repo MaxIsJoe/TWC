@@ -6348,6 +6348,8 @@ proc/InitItems()
 
 obj/items/wearable/collector
 
+	name = "collection bracelet"
+
 	icon = 'Season_bracelet.dmi'
 	icon_state = "inactive"
 
