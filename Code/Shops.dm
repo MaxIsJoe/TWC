@@ -595,6 +595,7 @@ obj/shopStand
 		item
 		stock
 		reqRep
+		amount = 1
 
 	Click()
 		if(src in oview(3))
@@ -652,7 +653,9 @@ obj/shopStand
 					else
 						txt += "."
 
-				new item (p)
+				var/obj/items/i = new item
+				i.stack = amount
+				i.Move(p)
 				p << infomsg(txt)
 
 				if(stock) stock--
