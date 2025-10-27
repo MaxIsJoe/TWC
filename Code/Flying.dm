@@ -169,7 +169,7 @@ turf
 					     speed  = 2,
 					     life   = new /Random(15,25))
 				//usr.client.sound_system.PlaySound('poof_simple.wav', /mob, sound_environment)
-				spawn _SoundEngine('poof_simple.wav', M, range = 6, repeat = 0)
+				//spawn _SoundEngine('poof_simple.wav', M, range = 6, repeat = 0)
 
 obj/Microphone
 	icon='Microphone.dmi'

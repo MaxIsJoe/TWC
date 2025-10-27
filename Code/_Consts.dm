@@ -18,12 +18,18 @@
 #define WINTER 0
 #define AUTUMN 0
 #define HALLOWEEN 0
+#define DARKNESSCOLOR "#01030e"
+#define REDMOONCOLOR "#38100d"
 #define NIGHTCOLOR "#2e3a8c"
 #define DAWNCOLOR "#f0b138"
 #define TELENDEVOUR_COLOR "#64d0d0"
 #define MAGICEYE_COLOR "#9df"
 #define COMBAT_TIME 150
 #define LEGENDARY_INDEX 7
+
+#define TIME_DEFAULT_DAY 50
+#define TIME_DEFAULT_NIGHT 50
+#define TIME_DEFAULT_TRANSITION 50
 
 #define PET_LIGHT 1
 #define PET_FOLLOW_FAR 2

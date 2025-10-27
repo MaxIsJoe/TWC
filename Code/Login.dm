@@ -1600,6 +1600,13 @@ mob/Player
 			stat("Hufflepuff",worldData.housepointsGSRH[4])
 			stat("","")
 
+			// Show current day/night phase and time until the next state
+			if(day_phase)
+				var/remaining = day_phase_ends - world.time
+				if(remaining < 0) remaining = 0
+				stat("Time of day:", day_phase)
+				stat("Until next:", ticks2time(remaining))
+
 			if(worldData.passives)
 				stat("Global Passives:","")
 				for(var/i in worldData.passives)

@@ -9,50 +9,58 @@ world
 
 		global_loops()
 
+var/day_time = TIME_DEFAULT_DAY
+var/night_time = TIME_DEFAULT_NIGHT
+var/transition_time = TIME_DEFAULT_TRANSITION
+var/day_phase = "Day"
+var/day_phase_ends = 0
+
+
+proc/SetDayPhase(phase as text, duration as num)
+	day_phase = phase
+	day_phase_ends = world.time + max(0, duration)
+
 proc/global_loops()
 	set waitfor = 0
-
-
 	var/day = TRUE
-	//var/Dawn = FALSE
+	// initialize phase
+	SetDayPhase("Day", day_time)
 	while(1)
 		day = !day
-		sleep(8000)
-		for(var/area/O in outside_areas)
-			O.planeColor = day ? null : DAWNCOLOR
+		// period corresponding to the current day/night state
+		SetDayPhase(day ? "Day" : "Night", day_time)
+		sleep(day_time)
+		// beginning of transition
+		transition_daylight(day, DAWNCOLOR, "The sun begins to ", "rise.", "set.")
+		SetDayPhase("Transition", transition_time)
+		sleep(transition_time)
+		transition_daylight(day, NIGHTCOLOR, "It is now ", "daytime.", "nighttime.")
+		// night (or day) length
+		SetDayPhase(day ? "Night" : "Day", night_time)
+		sleep(night_time)
+		transition_daylight(day, DAWNCOLOR, "The sun begins to ", "rise.", "set.")
+		SetDayPhase("Transition", transition_time)
+		sleep(transition_time)
 
-		for(var/mob/Player/p in Players)
-			if(!p.loc) continue
+proc/transition_daylight(day, color, prefix, day_msg, night_msg)
+	update_outside_areas(day, color)
+	update_player_interfaces()
+	announce_time_change(prefix, day ? day_msg : night_msg)
 
-			var/area/a = p.loc.loc
-			if(istype(a, /area/outside) || istype(a, /area/newareas/outside))
-				p.Interface.SetDarknessColor()
+proc/update_outside_areas(day, color)
+	for(var/area/O in outside_areas)
+		O.planeColor = day ? null : color
 
-		sleep(700)
+proc/update_player_interfaces()
+	for(var/mob/Player/p in Players)
+		if(!p.loc) continue
+		var/area/a = p.loc.loc
+		if(istype(a, /area/outside) || istype(a, /area/newareas/outside))
+			p.Interface.SetDarknessColor()
 
-		for(var/area/O in outside_areas)
-			O.planeColor = day ? null : NIGHTCOLOR
-
-		for(var/mob/Player/p in Players)
-			if(!p.loc) continue
-
-			var/area/a = p.loc.loc
-			if(istype(a, /area/outside) || istype(a, /area/newareas/outside))
-				p.Interface.SetDarknessColor()
-
-		sleep(8000)
-
-		for(var/area/O in outside_areas)
-			O.planeColor = day ? null : DAWNCOLOR
-
-		for(var/mob/Player/p in Players)
-			if(!p.loc) continue
-
-			var/area/a = p.loc.loc
-			if(istype(a, /area/outside) || istype(a, /area/newareas/outside))
-				p.Interface.SetDarknessColor()
-
-		sleep(700)
+proc/announce_time_change(prefix, message)
+	for(var/mob/Player/p in Players)
+		p << announcemsg(prefix + message)
 
 Weather
 	var/list/clouds = list()

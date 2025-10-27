@@ -79,6 +79,7 @@ mob/verb/Emote(t as text)
 		hearers()<<"<i>[usr] [t]</i>"
 	else
 		src << errormsg("Please enter something.")
+	/*
 	if(t == "coughs")
 		if(gender == MALE)
 			spawn _SoundEngine(pick(MaleCoughSounds), usr , range = 5, volume=90)
@@ -113,3 +114,4 @@ mob/verb/Emote(t as text)
 		spawn _SoundEngine(pick(claps), usr , range = 5, volume=90)
 	if(t == "farts")
 		spawn _SoundEngine(FartEmote, usr , range = 5, volume=90)
+	*/
