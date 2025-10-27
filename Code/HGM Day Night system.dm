@@ -12,6 +12,7 @@ world
 var/day_time = TIME_DEFAULT_DAY
 var/night_time = TIME_DEFAULT_NIGHT
 var/transition_time = TIME_DEFAULT_TRANSITION
+
 var/day_phase = "Day"
 var/day_phase_ends = 0
 
@@ -22,34 +23,30 @@ proc/SetDayPhase(phase as text, duration as num)
 
 proc/global_loops()
 	set waitfor = 0
-	var/day = TRUE
 	// initialize phase
 	SetDayPhase("Day", day_time)
 	while(1)
-		day = !day
-		// period corresponding to the current day/night state
-		SetDayPhase(day ? "Day" : "Night", day_time)
+		SetDayPhase("Day", day_time)
+		transition_daylight(null, "It is now day time.")
 		sleep(day_time)
-		// beginning of transition
-		transition_daylight(day, DAWNCOLOR, "The sun begins to ", "rise.", "set.")
-		SetDayPhase("Transition", transition_time)
+		transition_daylight(DAWNCOLOR, "The sun begins to set")
+		SetDayPhase("Dusk", transition_time)
 		sleep(transition_time)
-		transition_daylight(day, NIGHTCOLOR, "It is now ", "daytime.", "nighttime.")
-		// night (or day) length
-		SetDayPhase(day ? "Night" : "Day", night_time)
+		transition_daylight(NIGHTCOLOR, "It is now night time.")
+		SetDayPhase("Night", night_time)
 		sleep(night_time)
-		transition_daylight(day, DAWNCOLOR, "The sun begins to ", "rise.", "set.")
-		SetDayPhase("Transition", transition_time)
+		transition_daylight(DAWNCOLOR, "The sun begins to rise.")
+		SetDayPhase("Dawn", transition_time)
 		sleep(transition_time)
 
-proc/transition_daylight(day, color, prefix, day_msg, night_msg)
-	update_outside_areas(day, color)
+proc/transition_daylight(color, msg)
+	update_outside_areas(color)
 	update_player_interfaces()
-	announce_time_change(prefix, day ? day_msg : night_msg)
+	announce_time_change(msg)
 
-proc/update_outside_areas(day, color)
+proc/update_outside_areas(color)
 	for(var/area/O in outside_areas)
-		O.planeColor = day ? null : color
+		O.planeColor =  color
 
 proc/update_player_interfaces()
 	for(var/mob/Player/p in Players)
@@ -58,9 +55,9 @@ proc/update_player_interfaces()
 		if(istype(a, /area/outside) || istype(a, /area/newareas/outside))
 			p.Interface.SetDarknessColor()
 
-proc/announce_time_change(prefix, message)
+proc/announce_time_change(message)
 	for(var/mob/Player/p in Players)
-		p << announcemsg(prefix + message)
+		p << announcemsg(message)
 
 Weather
 	var/list/clouds = list()
