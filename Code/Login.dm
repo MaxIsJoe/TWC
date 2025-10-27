@@ -1601,10 +1601,10 @@ mob/Player
 			stat("","")
 
 			// Show current day/night phase and time until the next state
-			if(day_phase)
+			if(current_state)
 				var/remaining = day_phase_ends - world.time
 				if(remaining < 0) remaining = 0
-				stat("Time of day:", day_phase)
+				stat("Time of day:", current_state.name)
 				stat("Until next:", ticks2time(remaining))
 
 			if(worldData.passives)

@@ -9,35 +9,81 @@ world
 
 		global_loops()
 
-var/day_time = TIME_DEFAULT_DAY
-var/night_time = TIME_DEFAULT_NIGHT
-var/transition_time = TIME_DEFAULT_TRANSITION
+// Base time state datum
+datum/TimeState
+	var/name = "Base"
+	var/duration = 0
+	var/transition_color = null
+	var/transition_message = ""
+	var/datum/TimeState/next_state = null
+	
+	proc/Enter()
+		transition_daylight(transition_color, transition_message)
+		return duration
 
-var/day_phase = "Day"
+// Concrete time states
+datum/TimeState/Day
+	name = "Day"
+	duration = TIME_DEFAULT_DAY
+	transition_color = null
+	transition_message = "It is now day time."
+
+datum/TimeState/Dusk
+	name = "Dusk"
+	duration = TIME_DEFAULT_TRANSITION
+	transition_color = DAWNCOLOR
+	transition_message = "The sun begins to set"
+
+datum/TimeState/Night
+	name = "Night"
+	duration = TIME_DEFAULT_NIGHT
+	transition_color = NIGHTCOLOR
+	transition_message = "It is now night time."
+
+datum/TimeState/Darkness
+	name = "Darkness"
+	duration = TIME_DEFAULT_NIGHT / 2
+	transition_color = DARKNESSCOLOR
+	transition_message = ""
+
+datum/TimeState/Dawn
+	name = "Dawn"
+	duration = TIME_DEFAULT_TRANSITION
+	transition_color = DAWNCOLOR
+	transition_message = "The sun begins to rise."
+
+// Current time state
+var/datum/TimeState/current_state = null
 var/day_phase_ends = 0
 
+proc/InitializeTimeStates()
+	var/datum/TimeState/day = new /datum/TimeState/Day()
+	var/datum/TimeState/dusk = new /datum/TimeState/Dusk()
+	var/datum/TimeState/night = new /datum/TimeState/Night()
+	var/datum/TimeState/dawn = new /datum/TimeState/Dawn()
+	var/datum/TimeState/darkness = new /datum/TimeState/Darkness()
+	
+	// Link states in circular fashion
+	day.next_state = dusk
+	dusk.next_state = night
+	night.next_state = darkness
+	darkness.next_state = dawn
+	dawn.next_state = day
+	
+	return day
 
 proc/SetDayPhase(phase as text, duration as num)
-	day_phase = phase
 	day_phase_ends = world.time + max(0, duration)
 
 proc/global_loops()
 	set waitfor = 0
-	// initialize phase
-	SetDayPhase("Day", day_time)
+	current_state = InitializeTimeStates()
+	
 	while(1)
-		SetDayPhase("Day", day_time)
-		transition_daylight(null, "It is now day time.")
-		sleep(day_time)
-		transition_daylight(DAWNCOLOR, "The sun begins to set")
-		SetDayPhase("Dusk", transition_time)
-		sleep(transition_time)
-		transition_daylight(NIGHTCOLOR, "It is now night time.")
-		SetDayPhase("Night", night_time)
-		sleep(night_time)
-		transition_daylight(DAWNCOLOR, "The sun begins to rise.")
-		SetDayPhase("Dawn", transition_time)
-		sleep(transition_time)
+		var/wait_time = current_state.Enter()
+		SetDayPhase(current_state.name, wait_time)
+		sleep(wait_time)
+		current_state = current_state.next_state
 
 proc/transition_daylight(color, msg)
 	update_outside_areas(color)
@@ -56,6 +102,8 @@ proc/update_player_interfaces()
 			p.Interface.SetDarknessColor()
 
 proc/announce_time_change(message)
+	if(!message || message == "")
+		return
 	for(var/mob/Player/p in Players)
 		p << announcemsg(message)
 
