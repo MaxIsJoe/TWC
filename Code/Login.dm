@@ -729,7 +729,7 @@ mob
 			var/mob/Player/character=new()
 			//character.savefileversion = currentsavefilversion
 			character.save_loaded = 1
-			var/desiredname = input("What would you like to name your Harry Potter: The Wizards' Chronicles character? Keep in mind that you cannot use a popular name from the Harry Potter franchise, nor numbers or special characters.")
+			var/desiredname = input("What would you like to name your Wizards' Chronicles character? Keep in mind that you cannot use a popular name from the Harry Potter franchise, nor numbers or special characters.")
 			var/passfilter = name_filter(desiredname)
 			while(passfilter)
 				alert("Your desired name is not allowed as it [passfilter].")
@@ -793,7 +793,7 @@ mob
 			else if(character.Gender=="Male")
 				character.gender = MALE
 
-			src<<"<b><span style=\"font-size:2;color:#3636F5;\">Welcome to Harry Potter: The Wizards Chronicles</span> <u><a href='https://github.com/DuncanFairley/TWC/commits/master'>Version [VERSION].[SUB_VERSION]</a></u></b> <br>Join Discord <a href=\"https://discord.gg/3HbY5PjmjE\">here.</a>"
+			src<<"<b><span style=\"font-size:2;color:#3636F5;\">Welcome to The Wizards Chronicles</span> <u><a href='https://github.com/DuncanFairley/TWC/commits/master'>Version [VERSION].[SUB_VERSION]</a></u></b> <br>Join Discord <a href=\"https://discord.gg/3HbY5PjmjE\">here.</a>"
 			src<<"<b>You are in the entrance to Diagon Alley.</b>"
 			src<<"<b><u>Ollivander has a wand for you. Go up, and the first door on your right is the entrance to Ollivander's wand store.</u></b>"
 		//	src<<"<h3>For a full player guide, visit http://guide.wizardschronicles.com.</h3>"
@@ -2571,6 +2571,9 @@ mob/Player
 				Exp=0
 
 				StatPoints++
+				if(level % 20 == 0)
+					spellpoints += 1
+					src << "You have gained a <b>Spell Point!</b> You now have [spellpoints] Spell Points."
 
 				lvlGlow()
 
