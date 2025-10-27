@@ -663,6 +663,27 @@ mob
 <!DOCTYPE html>
 <html>
 <script>
+	function updatePreview() {
+        const house = document.getElementById("house").value;
+        const gender = document.querySelector('input\[name="gender"]:checked').value;
+
+        const preview = document.getElementById("charPreview");
+        let iconState = "";
+
+        // Determine the icon state based on house and gender
+        if (house === "Gryffindor") {
+            iconState = gender === "Male" ? "MaleGryffindor.dmi" : "FemaleGryffindor.dmi";
+        } else if (house === "Slytherin") {
+            iconState = gender === "Male" ? "MaleSlytherin.dmi" : "FemaleSlytherin.dmi";
+        } else if (house === "Ravenclaw") {
+            iconState = gender === "Male" ? "MaleRavenclaw.dmi" : "FemaleRavenclaw.dmi";
+        } else if (house === "Hufflepuff") {
+            iconState = gender === "Male" ? "MaleHufflepuff.dmi" : "FemaleHufflepuff.dmi";
+        }
+
+        // Update the preview image
+        preview.src = `${iconState}`;
+    }
     function submitCharacter() {
         const name = document.getElementById("charname").value;
         const house = document.getElementById("house").value;
@@ -677,18 +698,20 @@ mob
 		document.querySelector('.dev').textContent = link;
         window.location = link;
     }
+	setTimeout(updatePreview, 1000);
 </script>
 <body>
     <h2>Create Your Wizard</h2>
     <label>Name:</label>
     <input type="text" id="charname" maxlength="16"><br><br>
 
+	<img id="charPreview" src='MaleHufflepuff.dmi' width=32 height=32>
     <label>Gender:</label>
-    <input type="radio" name="gender" value="Male" checked> Male
-    <input type="radio" name="gender" value="Female"> Female<br><br>
+    <input type="radio" name="gender" value="Male" checked onclick="updatePreview()"> Male
+    <input type="radio" name="gender" value="Female" onclick="updatePreview()"> Female<br><br>
 
     <label>House:</label>
-    <select id="house">
+    <select id="house" onchange="updatePreview()">
         <option>Gryffindor</option>
         <option>Slytherin</option>
         <option>Ravenclaw</option>
@@ -779,6 +802,14 @@ mob
 			"}
 			//usr << browse(file("character_creation.html"), "window=cc")
 			usr << browse(html, "window=cc;size=500x500;")
+			usr << browse_rsc('MaleSlytherin.dmi')
+			usr << browse_rsc('FemaleSlytherin.dmi')
+			usr << browse_rsc('MaleGryffindor.dmi')
+			usr << browse_rsc('FemaleGryffindor.dmi')
+			usr << browse_rsc('MaleRavenclaw.dmi')
+			usr << browse_rsc('FemaleRavenclaw.dmi')
+			usr << browse_rsc('MaleHufflepuff.dmi')
+			usr << browse_rsc('FemaleHufflepuff.dmi')
 			//sleep(10)
 			//usr << output("\ref[src]", "cc.browser:getSrc")
 			return
