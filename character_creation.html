@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<script>
+    const urlParams = new URLSearchParams(window.location.search);
+    let src;
+
+    function submitCharacter() {
+        const name = document.getElementById("charname").value;
+        const house = document.getElementById("house").value;
+        const gender = document.querySelector('input[name="gender"]:checked').value;
+        const byondRef = "?src=" + src;
+
+        var link = "byond://" + byondRef + "&action=createchar"
+            + "?name=" + encodeURIComponent(name)
+            + "?house=" + encodeURIComponent(house)
+            + "?gender=" + encodeURIComponent(gender);
+
+        window.location = link;
+        document.querySelector('.dev').textContent = link;
+    }
+
+    function getSrc(v) {
+        src = v;
+        document.querySelector('.dev').textContent = v;
+        alert("Source received: " + v);
+    }
+</script>
+
+<body>
+    <h2>Create Your Wizard</h2>
+    <label>Name:</label>
+    <input type="text" id="charname" maxlength="16"><br><br>
+
+    <label>Gender:</label>
+    <input type="radio" name="gender" value="Male" checked> Male
+    <input type="radio" name="gender" value="Female"> Female<br><br>
+
+    <label>House:</label>
+    <select id="house">
+        <option>Gryffindor</option>
+        <option>Slytherin</option>
+        <option>Ravenclaw</option>
+        <option>Hufflepuff</option>
+    </select><br><br>
+
+    <p class="dev"></p>
+    <p id="k"></p>
+
+    <button onclick="submitCharacter()">Create Character</button>
+</body>
+
+</html>

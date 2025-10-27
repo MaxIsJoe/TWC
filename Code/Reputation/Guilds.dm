@@ -350,7 +350,7 @@ mob/TalkNPC/Guildmaster
 					del c
 					return
 				desiredname = trimAll(desiredname)
-				var/passfilter = c.name_filter(desiredname)
+				var/passfilter = new_character_name_filter(desiredname)
 
 				if(!passfilter)
 
@@ -369,7 +369,7 @@ mob/TalkNPC/Guildmaster
 						del c
 						return
 					desiredname = trimAll(desiredname)
-					passfilter = c.name_filter(desiredname)
+					passfilter = new_character_name_filter(desiredname)
 
 					if(!passfilter)
 

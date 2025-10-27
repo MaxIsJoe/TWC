@@ -648,93 +648,82 @@ world/proc/worldlooper()
 					if(2)
 						C.mob << "<span style=\";\"><b><h3>You should probably listen to TWC Radio! Click <a href='http://listen.hotdogradio.com/?ID=TWC'>here</a> to listen!</h3></b></span><br>"
 	spawn()worldlooper()
+
+
+
+
 mob
 	create_character
-		proc/name_filter(name)
-			//Returns reason that name is not allowed, or null if it is accepted
-			//Format of returned message is "Name is invalid as it [error]"
-			//Also removes any non-allowed character
-			var/list/allowed_characters = list(
-				"a",
-				"b",
-				"c",
-				"d",
-				"e",
-				"f",
-				"g",
-				"h",
-				"i",
-				"j",
-				"k",
-				"l",
-				"m",
-				"n",
-				"o",
-				"p",
-				"q",
-				"r",
-				"s",
-				"t",
-				"u",
-				"v",
-				"w",
-				"x",
-				"y",
-				"z",
-				" ")
-			var/list/unallowed_names = list(
-				"robed figure",
-				"masked figure",
-				"deatheater",
-				"auror",
-				"harry",
-				"potter",
-				"albus",
-				"malfoy",
-				"snape",
-				"hermoine",
-				"voldemort",
-				"dumbledore",
-				"riddle",
-				"potter",
-				"granger",
-				"malfoy",
-				"weasley",
-				"lestrange",
-				"sirius",
-				"riddle",
-				"lestrange",
-				"black",
-				"marvello")
-			var/list/foundinvalids = ""
-			alert(length(name))
-			for(var/i=1;i<length(name)+1;i++)
-				//Checks each character to see if it's a valid character - informs the user to remove it
-				if(! (lowertext(copytext(name,i,i+1)) in allowed_characters))
-					//Invalid character
-					if(length(foundinvalids))
-						foundinvalids += ", [copytext(name,i,i+1)]"
-					else
-						foundinvalids += "[copytext(name,i,i+1)]"
-			if(foundinvalids)
-				return "contains the following invalid characters, [foundinvalids]"
-			if(length(name) < 3)
-				return "is less than 3 characters long"
-			else if(length(name) > 16)
-				return "is more than 16 characters long"
-			for(var/unallowed_name in unallowed_names)
-				if(findtext(name, unallowed_name))
-					return "contains \"[unallowed_name]\""
 		Login()
 			var/mob/Player/character=new()
 			//character.savefileversion = currentsavefilversion
 			character.save_loaded = 1
+			var/html = \
+			{"
+<!DOCTYPE html>
+<html>
+<script>
+    const urlParams = new URLSearchParams(window.location.search);
+    let src;
+
+    function submitCharacter() {
+        const name = document.getElementById("charname").value;
+        const house = document.getElementById("house").value;
+        const gender = document.querySelector('input[name="gender"]:checked').value;
+        const byondRef = "?src=" + src;
+
+        var link = "byond://" + byondRef + "&action=createchar"
+            + "?name=" + encodeURIComponent(name)
+            + "?house=" + encodeURIComponent(house)
+            + "?gender=" + encodeURIComponent(gender);
+
+        window.location = link;
+        document.querySelector('.dev').textContent = link;
+    }
+
+    function getSrc(v) {
+        src = v;
+        document.querySelector('.dev').textContent = v;
+        alert("Source received: " + v);
+    }
+</script>
+<body>
+    <h2>Create Your Wizard</h2>
+    <label>Name:</label>
+    <input type="text" id="charname" maxlength="16"><br><br>
+
+    <label>Gender:</label>
+    <input type="radio" name="gender" value="Male" checked> Male
+    <input type="radio" name="gender" value="Female"> Female<br><br>
+
+    <label>House:</label>
+    <select id="house">
+        <option>Gryffindor</option>
+        <option>Slytherin</option>
+        <option>Ravenclaw</option>
+        <option>Hufflepuff</option>
+    </select><br><br>
+
+    <p class="dev"></p>
+    <p id="k"></p>
+
+    <button onclick="submitCharacter()">Create Character</button>
+</body>
+</html>
+			"}
+			usr << browse(file("character_creation.html"), "window=cc")
+			//usr << browse(html, "window=cc")
+			usr << output("\ref[src]", "cc.browser:getSrc")
+			usr << output("\ref[src]", "cc:k")
+			usr << output("\ref[src]", "cc.k")
+			return
+
 			var/desiredname = input("What would you like to name your Wizards' Chronicles character? Keep in mind that you cannot use a popular name from the Harry Potter franchise, nor numbers or special characters.")
-			var/passfilter = name_filter(desiredname)
+			var/passfilter = new_character_name_filter(desiredname)
 			while(passfilter)
 				alert("Your desired name is not allowed as it [passfilter].")
 				desiredname = input("Please select a name that does not use a popular name from the Harry Potter franchise, nor numbers or special characters.")
-				passfilter = name_filter(desiredname)
+				passfilter = new_character_name_filter(desiredname)
 			var/charname = desiredname
 			charname=copytext(charname,1,24/*the 20 is max name length*/)
 			charname = addtext(uppertext(copytext(charname,1,2)),copytext(charname,2,length(charname)+1))
@@ -847,6 +836,134 @@ mob
 			src = null
 			sql_check_for_referral(character)
 			del(oldmob)
+
+mob/Topic(href, href_list[])
+	..()
+	world << "Topic: [href] [href_list]"
+	if(href_list["action"] == "createchar")
+		var/desiredname = href_list["name"]
+		var/house = href_list["house"]
+		var/gender = href_list["gender"]
+
+		var/reason = new_character_name_filter(desiredname)
+		if(reason)
+			src << output("Your desired name is not allowed as it [reason].", "charcreate.browser")
+			return
+
+		switch(alert("Confirm Character Creation","Yes","No"))
+			if(1)
+				finish_character_creation(desiredname, house, gender)
+			else
+				src << output("Character creation cancelled.", "charcreate.browser")
+
+mob/proc/finish_character_creation(name, house, gender)
+	var/mob/Player/character = new()
+	character.save_loaded = 1
+	var/charname = copytext(name, 1, 24)
+	charname = addtext(uppertext(copytext(charname,1,2)), copytext(charname,2,length(charname)+1))
+	character.name = "[html_encode(charname)]"
+
+	character.House = house
+	character.Gender = gender
+
+	// Assign verbs/icons by house and gender
+	if(house == "Gryffindor")
+		character.verbs += /mob/GM/verb/Gryffindor_Chat
+		character.icon = gender == "Male" ? 'MaleGryffindor.dmi' : 'FemaleGryffindor.dmi'
+	else if(house == "Slytherin")
+		character.verbs += /mob/GM/verb/Slytherin_Chat
+		character.icon = gender == "Male" ? 'MaleSlytherin.dmi' : 'FemaleSlytherin.dmi'
+	else if(house == "Ravenclaw")
+		character.verbs += /mob/GM/verb/Ravenclaw_Chat
+		character.icon = gender == "Male" ? 'MaleRavenclaw.dmi' : 'FemaleRavenclaw.dmi'
+	else if(house == "Hufflepuff")
+		character.verbs += /mob/GM/verb/Hufflepuff_Chat
+		character.icon = gender == "Male" ? 'MaleHufflepuff.dmi' : 'FemaleHufflepuff.dmi'
+
+	character.Rank = "Player"
+	character.baseicon = character.icon
+	character.Year = "1st Year"
+
+	src.client.mob = character
+	character.loc = locate("@DiagonAlley")
+	src << browse(null, "window=charcreate") // close the HTML window
+	character << "<b>Welcome to The Wizards Chronicles!</b>"
+
+proc/new_character_name_filter(name)
+	//Returns reason that name is not allowed, or null if it is accepted
+	//Format of returned message is "Name is invalid as it [error]"
+	//Also removes any non-allowed character
+	var/list/allowed_characters = list(
+		"a",
+		"b",
+		"c",
+		"d",
+		"e",
+		"f",
+		"g",
+		"h",
+		"i",
+		"j",
+		"k",
+		"l",
+		"m",
+		"n",
+		"o",
+		"p",
+		"q",
+		"r",
+		"s",
+		"t",
+		"u",
+		"v",
+		"w",
+		"x",
+		"y",
+		"z",
+		" ")
+	var/list/unallowed_names = list(
+		"robed figure",
+		"masked figure",
+		"deatheater",
+		"auror",
+		"harry",
+		"potter",
+		"albus",
+		"malfoy",
+		"snape",
+		"hermoine",
+		"voldemort",
+		"dumbledore",
+		"riddle",
+		"potter",
+		"granger",
+		"malfoy",
+		"weasley",
+		"lestrange",
+		"sirius",
+		"riddle",
+		"lestrange",
+		"black",
+		"marvello")
+	var/list/foundinvalids = ""
+	alert(length(name))
+	for(var/i=1;i<length(name)+1;i++)
+		if(! (lowertext(copytext(name,i,i+1)) in allowed_characters))
+			//Invalid character
+			if(length(foundinvalids))
+				foundinvalids += ", [copytext(name,i,i+1)]"
+			else
+				foundinvalids += "[copytext(name,i,i+1)]"
+			if(foundinvalids)
+				return "contains the following invalid characters, [foundinvalids]"
+			if(length(name) < 3)
+				return "is less than 3 characters long"
+			else if(length(name) > 16)
+				return "is more than 16 characters long"
+			for(var/unallowed_name in unallowed_names)
+				if(findtext(name, unallowed_name))
+					return "contains \"[unallowed_name]\""
+
 mob/var/tmp
 	clothDmg = 0
 	clothDef = 0

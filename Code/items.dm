@@ -5389,14 +5389,14 @@ obj/items/treats
 			if(!desiredname)
 				del c
 				return
-			var/passfilter = c.name_filter(desiredname)
+			var/passfilter = new_character_name_filter(desiredname)
 			while(passfilter)
 				alert("Your desired name is not allowed as it [passfilter].")
 				desiredname = input("Please select a name that does not use a popular name from the Harry Potter franchise, nor numbers or special characters.") as text|null
 				if(!desiredname)
 					del c
 					return
-				passfilter = c.name_filter(desiredname)
+				passfilter = new_character_name_filter(desiredname)
 			del c
 			if(name == desiredname) return
 			. = 1
