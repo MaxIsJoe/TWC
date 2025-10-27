@@ -40,11 +40,22 @@ datum/TimeState/Night
 	transition_color = NIGHTCOLOR
 	transition_message = "It is now night time."
 
+	Enter()
+		next_state = NightRandomStates[pick(1, length(NightRandomStates))]
+		transition_daylight(transition_color, transition_message)
+		return duration
+
 datum/TimeState/Darkness
 	name = "Darkness"
-	duration = TIME_DEFAULT_NIGHT / 2
+	duration = TIME_DEFAULT_TRANSITION / 4
 	transition_color = DARKNESSCOLOR
 	transition_message = ""
+
+datum/TimeState/RedMoon
+	name = "Red Moon"
+	duration = TIME_DEFAULT_TRANSITION / 2
+	transition_color = REDMOONCOLOR
+	transition_message = "A red moon rises, casting an eerie glow."
 
 datum/TimeState/Dawn
 	name = "Dawn"
@@ -54,6 +65,8 @@ datum/TimeState/Dawn
 
 // Current time state
 var/datum/TimeState/current_state = null
+var/datum/TimeState/AllStates[]
+var/datum/TimeState/NightRandomStates[]
 var/day_phase_ends = 0
 
 proc/InitializeTimeStates()
@@ -62,14 +75,19 @@ proc/InitializeTimeStates()
 	var/datum/TimeState/night = new /datum/TimeState/Night()
 	var/datum/TimeState/dawn = new /datum/TimeState/Dawn()
 	var/datum/TimeState/darkness = new /datum/TimeState/Darkness()
+	var/datum/TimeState/red_moon = new /datum/TimeState/RedMoon()
+
+	AllStates = list(day, dusk, night, dawn, darkness, red_moon)
+	NightRandomStates = list(darkness, red_moon)
 	
 	// Link states in circular fashion
 	day.next_state = dusk
 	dusk.next_state = night
 	night.next_state = darkness
 	darkness.next_state = dawn
+	red_moon.next_state = dawn
 	dawn.next_state = day
-	
+
 	return day
 
 proc/SetDayPhase(phase as text, duration as num)
@@ -81,6 +99,8 @@ proc/global_loops()
 	
 	while(1)
 		var/wait_time = current_state.Enter()
+		if(!wait_time || wait_time <= 0)
+			wait_time = current_state.duration
 		SetDayPhase(current_state.name, wait_time)
 		sleep(wait_time)
 		current_state = current_state.next_state
