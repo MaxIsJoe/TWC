@@ -186,12 +186,14 @@ WorldData/var/tmp/list/waterColors = list()
 obj/custom // used for defining custom objects with { } constructor
 
 
-/*client
-	fps = 50
+client
+	fps = 40
 	glide_size = 32
 
+/*
 mob/Player
-	glide_size = 32*/
+	glide_size = 32
+*/
 
 mob/Player/verb/ToggleFPS()
 	set category = null
