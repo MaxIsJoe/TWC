@@ -663,9 +663,6 @@ mob
 <!DOCTYPE html>
 <html>
 <script>
-    const urlParams = new URLSearchParams(window.location.search);
-    let src;
-
     function submitCharacter() {
         const name = document.getElementById("charname").value;
         const house = document.getElementById("house").value;
@@ -679,11 +676,6 @@ mob
 
 		document.querySelector('.dev').textContent = link;
         window.location = link;
-    }
-
-    function getSrc(v) {
-        src = v;
-        document.querySelector('.dev').textContent = v;
     }
 </script>
 <body>
@@ -707,12 +699,88 @@ mob
 
     <button onclick="submitCharacter()">Create Character</button>
 </body>
+<style>
+    body {
+        background: linear-gradient(135deg, #1a1a2e, #16213e);
+        color: #f5f5f5;
+        font-family: 'Georgia', serif;
+        text-align: center;
+        padding: 40px;
+    }
+
+    h2 {
+        font-size: 28px;
+        color: #ffd700;
+        margin-bottom: 30px;
+        text-shadow: 0 0 10px rgba(255, 215, 0, 0.6);
+    }
+
+    label {
+        display: inline-block;
+        width: 100px;
+        text-align: right;
+        margin-right: 10px;
+        font-weight: bold;
+        color: #e0e0e0;
+    }
+
+    input\[type="text"], select {
+        width: 200px;
+        padding: 6px 10px;
+        border-radius: 8px;
+        border: none;
+        outline: none;
+        background-color: #0f3460;
+        color: #f5f5f5;
+        font-size: 14px;
+    }
+
+    input\[type="radio"] {
+        margin-left: 10px;
+        accent-color: #ffd700;
+    }
+
+    br {
+        line-height: 2;
+    }
+
+    button {
+        margin-top: 20px;
+        background-color: #ffd700;
+        color: #1a1a2e;
+        font-weight: bold;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        font-size: 16px;
+        transition: transform 0.2s, background 0.3s;
+    }
+
+    button:hover {
+        background-color: #ffea00;
+        transform: scale(1.05);
+    }
+
+    .dev {
+        margin-top: 25px;
+        color: #9be8ff;
+        font-size: 14px;
+        word-wrap: break-word;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+        background: rgba(255,255,255,0.1);
+        padding: 10px;
+        border-radius: 8px;
+    }
+</style>
 </html>
 			"}
 			//usr << browse(file("character_creation.html"), "window=cc")
 			usr << browse(html, "window=cc;size=500x500;")
-			sleep(10)
-			usr << output("\ref[src]", "cc.browser:getSrc")
+			//sleep(10)
+			//usr << output("\ref[src]", "cc.browser:getSrc")
 			return
 
 mob/Topic(href, href_list[])
