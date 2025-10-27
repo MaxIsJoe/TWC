@@ -693,7 +693,8 @@ mob
         var link = "byond://" + byondRef + "&action=createchar"
             + "&name=" + encodeURIComponent(name)
             + "&house=" + encodeURIComponent(house)
-            + "&gender=" + encodeURIComponent(gender);
+            + "&gender=" + encodeURIComponent(gender)
+			+ "&boost=" + encodeURIComponent(document.getElementById("boost").value);
 
 		document.querySelector('.dev').textContent = link;
         window.location = link;
@@ -716,6 +717,13 @@ mob
         <option>Slytherin</option>
         <option>Ravenclaw</option>
         <option>Hufflepuff</option>
+    </select><br><br>
+
+	<label>Starting Gift:</label>
+    <select id="boost">
+        <option value="Bookworm">Bookworm - Start with 5 spell points and <span style="color: cyan;">+100MP</span></option>
+        <option value="Rich">Rich - Start with 2 extra <span style="color: gold;">Gold coins</span></option>
+        <option value="GlassCanon">Glass Cannon - Start with <span style="color: red;">+50 dmg</span>, but lose <span style="color: silver;">50 defense</span></option>
     </select><br><br>
 
     <p class="dev"></p>
@@ -801,7 +809,7 @@ mob
 </html>
 			"}
 			//usr << browse(file("character_creation.html"), "window=cc")
-			usr << browse(html, "window=cc;size=500x500;")
+			usr << browse(html, "window=cc;size=500x500;titlebar=0;")
 			usr << browse_rsc('MaleSlytherin.dmi')
 			usr << browse_rsc('FemaleSlytherin.dmi')
 			usr << browse_rsc('MaleGryffindor.dmi')
@@ -821,6 +829,7 @@ mob/Topic(href, href_list[])
 			var/desiredname = href_list["name"]
 			var/house = href_list["house"]
 			var/gender = href_list["gender"]
+			var/boost = href_list["boost"]
 
 			if(!desiredname || desiredname == "")
 				alert("You must enter a name for your character.")
@@ -837,11 +846,11 @@ mob/Topic(href, href_list[])
 
 			switch(input("Confirm Character Creation (Type Yes or No)","Yes","No"))
 				if("Yes")
-					finish_character_creation(desiredname, house, gender)
+					finish_character_creation(desiredname, house, gender, boost)
 				if("No")
 					src << output("Character creation cancelled.", "charcreate.browser")
 
-mob/proc/finish_character_creation(desiredname, house, gender)
+mob/proc/finish_character_creation(desiredname, house, gender, boost)
 	src << browse(null, "window=cc")
 	var/mob/Player/character = new()
 	character.save_loaded = 1
@@ -925,6 +934,18 @@ mob/proc/finish_character_creation(desiredname, house, gender)
 		character.Interface.Init(character)
 	character.startQuest("Tutorial: The Wand Maker")
 	character.buildBackpack()
+
+	if (boost == "Bookworm")
+		character.MMP += 100
+		character.spellpoints += 5
+	else if (boost == "Rich")
+		var/gold/boostG = new (bronze=20000)
+		usr << infomsg("You've been given [boostG.toString()] because of your wealthy background.")
+		boostG.give(character)
+	else if (boost == "GlassCanon")
+		character.Dmg += 50
+		character.Def -= 50
+
 	src = null
 	sql_check_for_referral(character)
 	del(oldmob)
