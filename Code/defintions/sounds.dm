@@ -1,0 +1,110 @@
+// This file contains definitions for all sound files used in the game
+
+// Alert Sounds (root directory)
+#define SOUND_ALERT "sound/Alert.ogg"
+#define SOUND_ALERT_2 "sound/TWC_Alert_2.ogg"
+
+// Ambient Sounds
+#define SOUND_AMBIENT_1 "sound/sfx/amb/clips/ambicha1.ogg"
+#define SOUND_AMBIENT_2 "sound/sfx/amb/clips/ambicha2.ogg"
+#define SOUND_AMBIENT_3 "sound/sfx/amb/clips/ambicha3.ogg"
+#define SOUND_AMBIENT_4 "sound/sfx/amb/clips/ambicha4.ogg"
+#define SOUND_ASH_STORM_INSIDE "sound/sfx/amb/ash_storm_inside.ogg"
+#define SOUND_ASH_STORM_OUTSIDE "sound/sfx/amb/ash_storm_outside.ogg"
+#define SOUND_XMAS "sound/sfx/amb/xmas.ogg"
+#define SOUND_SHORE = "sound/sfx/amb/shore.wav"
+
+// Arena Announcer Sounds
+#define SOUND_ARENA_BATTLE_MODE "sound/sfx/arena annoucer/battle_mode.ogg"
+#define SOUND_ARENA_BEGIN "sound/sfx/arena annoucer/begin.ogg"
+#define SOUND_ARENA_CHAMPIONSHIP "sound/sfx/arena annoucer/championship_mode.ogg"
+#define SOUND_ARENA_DEATHMATCH "sound/sfx/arena annoucer/deathmatch.ogg"
+#define SOUND_ARENA_FIGHT "sound/sfx/arena annoucer/fight.ogg"
+#define SOUND_ARENA_FINAL_ROUND "sound/sfx/arena annoucer/final_round.ogg"
+#define SOUND_ARENA_FLAWLESS "sound/sfx/arena annoucer/flawless_victory.ogg"
+#define SOUND_ARENA_TIE "sound/sfx/arena annoucer/it's_a_tie.ogg"
+#define SOUND_ARENA_KILL_1 "sound/sfx/arena annoucer/k1.ogg"
+#define SOUND_ARENA_KILL_2 "sound/sfx/arena annoucer/k2.ogg"
+#define SOUND_ARENA_KILL_3 "sound/sfx/arena annoucer/k3.ogg"
+#define SOUND_ARENA_KILL_4 "sound/sfx/arena annoucer/k4.ogg"
+#define SOUND_ARENA_KILL_5 "sound/sfx/arena annoucer/k5.ogg"
+#define SOUND_ARENA_KILL_6 "sound/sfx/arena annoucer/k6.ogg"
+#define SOUND_ARENA_KILL_7 "sound/sfx/arena annoucer/k7.ogg"
+#define SOUND_ARENA_KILL_8 "sound/sfx/arena annoucer/k8.ogg"
+#define SOUND_ARENA_KILL_9 "sound/sfx/arena annoucer/k9.ogg"
+#define SOUND_ARENA_KILL_10 "sound/sfx/arena annoucer/k10.ogg"
+#define SOUND_ARENA_KILL_HER "sound/sfx/arena annoucer/kill_her.ogg"
+#define SOUND_ARENA_KILL_HIM "sound/sfx/arena annoucer/kill_him.ogg"
+#define SOUND_ARENA_KILL_IT "sound/sfx/arena annoucer/kill_it.ogg"
+#define SOUND_ARENA_LOSER "sound/sfx/arena annoucer/loser.ogg"
+#define SOUND_ARENA_MULTI_KILL "sound/sfx/arena annoucer/multi_kill.ogg"
+#define SOUND_ARENA_PREPARE "sound/sfx/arena annoucer/prepare_yourself.ogg"
+#define SOUND_ARENA_READY "sound/sfx/arena annoucer/ready.ogg"
+#define SOUND_ARENA_ROUND_1 "sound/sfx/arena annoucer/round_1.ogg"
+#define SOUND_ARENA_ROUND_2 "sound/sfx/arena annoucer/round_2.ogg"
+#define SOUND_ARENA_ROUND_3 "sound/sfx/arena annoucer/round_3.ogg"
+#define SOUND_ARENA_ROUND_4 "sound/sfx/arena annoucer/round_4.ogg"
+#define SOUND_ARENA_ROUND_5 "sound/sfx/arena annoucer/round_5.ogg"
+#define SOUND_ARENA_SUDDEN_DEATH "sound/sfx/arena annoucer/sudden_death.ogg"
+#define SOUND_ARENA_SURVIVAL "sound/sfx/arena annoucer/survival_mode.ogg"
+#define SOUND_ARENA_TIE_SIMPLE "sound/sfx/arena annoucer/tie.ogg"
+#define SOUND_ARENA_TIE_BREAKER "sound/sfx/arena annoucer/tie_breaker.ogg"
+#define SOUND_ARENA_TIME "sound/sfx/arena annoucer/time.ogg"
+#define SOUND_ARENA_WINNER "sound/sfx/arena annoucer/winner.ogg"
+#define SOUND_ARENA_YOU_LOSE "sound/sfx/arena annoucer/you_lose.ogg"
+#define SOUND_ARENA_YOU_WIN "sound/sfx/arena annoucer/you_win.ogg"
+
+// Door Sounds
+#define SOUND_DOOR_STONE "sound/sfx/doors/stonedoor_openclose.ogg"
+
+// Emote Sounds
+#define SOUND_EMOTE_CLAP_1 "sound/sfx/emotes/clap1.ogg"
+#define SOUND_EMOTE_CLAP_2 "sound/sfx/emotes/clap2.ogg"
+#define SOUND_EMOTE_CLAP_3 "sound/sfx/emotes/clap3.ogg"
+#define SOUND_EMOTE_CLAP_4 "sound/sfx/emotes/clap4.ogg"
+#define SOUND_EMOTE_FART "sound/sfx/emotes/fart.ogg"
+#define SOUND_EMOTE_FART_MOUNTAIN "sound/sfx/emotes/fartingmountain.ogg"
+#define SOUND_EMOTE_FART_MASSIVE "sound/sfx/emotes/fartmassive.ogg"
+#define SOUND_EMOTE_FEMALE_YAWN_1 "sound/sfx/emotes/female_yawn1.ogg"
+#define SOUND_EMOTE_FEMALE_YAWN_2 "sound/sfx/emotes/female_yawn2.ogg"
+#define SOUND_EMOTE_FEMALE_COUGH_A "sound/sfx/emotes/f_cougha.ogg"
+#define SOUND_EMOTE_FEMALE_COUGH_B "sound/sfx/emotes/f_coughb.ogg"
+#define SOUND_EMOTE_FEMALE_SNEEZE "sound/sfx/emotes/f_sneeze.ogg"
+#define SOUND_EMOTE_MALE_YAWN_1 "sound/sfx/emotes/male_yawn1.ogg"
+#define SOUND_EMOTE_MALE_YAWN_2 "sound/sfx/emotes/male_yawn2.ogg"
+#define SOUND_EMOTE_MALE_LAUGH "sound/sfx/emotes/manlaugh.ogg"
+#define SOUND_EMOTE_MALE_COUGH_A "sound/sfx/emotes/m_cougha.ogg"
+#define SOUND_EMOTE_MALE_COUGH_B "sound/sfx/emotes/m_coughb.ogg"
+#define SOUND_EMOTE_MALE_COUGH_C "sound/sfx/emotes/m_coughc.ogg"
+#define SOUND_EMOTE_MALE_SNEEZE "sound/sfx/emotes/m_sneeze.ogg"
+#define SOUND_EMOTE_FEMALE_SIGH "sound/sfx/emotes/sigh_female.ogg"
+#define SOUND_EMOTE_MALE_SIGH "sound/sfx/emotes/sigh_male.ogg"
+#define SOUND_EMOTE_FEMALE_THROAT "sound/sfx/emotes/throatclear_female.ogg"
+#define SOUND_EMOTE_MALE_THROAT "sound/sfx/emotes/throatclear_male.ogg"
+#define SOUND_EMOTE_FEMALE_LAUGH "sound/sfx/emotes/womanlaugh.ogg"
+
+// Music Box Sounds
+#define SOUND_MUSIC_XYLOPHONE_1 "sound/sfx/musicbox/xylophone1.ogg"
+#define SOUND_MUSIC_XYLOPHONE_2 "sound/sfx/musicbox/xylophone2.ogg"
+#define SOUND_MUSIC_XYLOPHONE_3 "sound/sfx/musicbox/xylophone3.ogg"
+
+// Potion Sounds
+#define SOUND_POTION_BREAK "sound/sfx/Potions/Bottle Break.ogg"
+#define SOUND_POTION_DRINK "sound/sfx/potion_drink.wav"
+
+// Quest Sounds
+#define SOUND_QUEST_FAIL "sound/sfx/Quests/QuestFail.wav"
+#define SOUND_QUEST_FOUND "sound/sfx/Quests/QuestFound.wav"
+
+// Teleport Sounds
+#define SOUND_TELEPORT_POOF_OLD "sound/sfx/teleports/poof_simple-old1.wav"
+#define SOUND_TELEPORT_POOF "sound/sfx/teleports/poof_simple.wav"
+
+// Miscellaneous Sounds
+#define SOUND_DEATH "sound/sfx/death.wav"
+#define SOUND_FALL "sound/sfx/fall.wav"
+#define SOUND_MAGIC_CURSIO "sound/sfx/magic_cursio.ogg"
+#define SOUND_MAGIC_TIME "sound/sfx/magic_time.ogg"
+#define SOUND_PAGE_TURN_1 "sound/sfx/pageturn1.ogg"
+#define SOUND_PAGE_TURN_2 "sound/sfx/pageturn2.ogg"
+#define SOUND_PAGE_TURN_3 "sound/sfx/pageturn3.ogg"
