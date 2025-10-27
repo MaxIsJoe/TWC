@@ -1500,6 +1500,13 @@ mob
 				else if(target.level > level && !isElite && !hardmode)
 					dmg -= dmg * ((target.level - (level + 1))/150)
 
+				if (current_state.name == "Darkness")
+					dmg *= 1.5
+
+				if (current_state.name == "Red Moon")
+					HP += round(dmg * 0.5)
+					Flash("green", 0.1)
+
 				dmg = round(dmg - target.Slayer.level)
 
 				if(target.animagusOn)
@@ -1538,6 +1545,12 @@ mob
 				sleep(AttackDelay+slow)
 				pixel_x -= px
 				pixel_y -= py
+		
+		proc/Flash(color_to_flash = "#FF0000", duration = 5)
+			var/old_color = src.color
+			src.color = color_to_flash
+			sleep(duration)
+			src.color = old_color
 
 
 
