@@ -669,22 +669,21 @@ mob
     function submitCharacter() {
         const name = document.getElementById("charname").value;
         const house = document.getElementById("house").value;
-        const gender = document.querySelector('input[name="gender"]:checked').value;
-        const byondRef = "?src=" + src;
+        const gender = document.querySelector('input\[name="gender"]:checked').value;
+        const byondRef = "?src=["\ref[src]"]";
 
         var link = "byond://" + byondRef + "&action=createchar"
-            + "?name=" + encodeURIComponent(name)
-            + "?house=" + encodeURIComponent(house)
-            + "?gender=" + encodeURIComponent(gender);
+            + "&name=" + encodeURIComponent(name)
+            + "&house=" + encodeURIComponent(house)
+            + "&gender=" + encodeURIComponent(gender);
 
+		document.querySelector('.dev').textContent = link;
         window.location = link;
-        document.querySelector('.dev').textContent = link;
     }
 
     function getSrc(v) {
         src = v;
         document.querySelector('.dev').textContent = v;
-        alert("Source received: " + v);
     }
 </script>
 <body>
@@ -705,163 +704,53 @@ mob
     </select><br><br>
 
     <p class="dev"></p>
-    <p id="k"></p>
 
     <button onclick="submitCharacter()">Create Character</button>
 </body>
 </html>
 			"}
-			usr << browse(file("character_creation.html"), "window=cc")
-			//usr << browse(html, "window=cc")
+			//usr << browse(file("character_creation.html"), "window=cc")
+			usr << browse(html, "window=cc;size=500x500;")
+			sleep(10)
 			usr << output("\ref[src]", "cc.browser:getSrc")
-			usr << output("\ref[src]", "cc:k")
-			usr << output("\ref[src]", "cc.k")
 			return
-
-			var/desiredname = input("What would you like to name your Wizards' Chronicles character? Keep in mind that you cannot use a popular name from the Harry Potter franchise, nor numbers or special characters.")
-			var/passfilter = new_character_name_filter(desiredname)
-			while(passfilter)
-				alert("Your desired name is not allowed as it [passfilter].")
-				desiredname = input("Please select a name that does not use a popular name from the Harry Potter franchise, nor numbers or special characters.")
-				passfilter = new_character_name_filter(desiredname)
-			var/charname = desiredname
-			charname=copytext(charname,1,24/*the 20 is max name length*/)
-			charname = addtext(uppertext(copytext(charname,1,2)),copytext(charname,2,length(charname)+1))
-			character.name="[html_encode(charname)]"
-			switch(input(src,"You are allowed to choose a House.","House Selection") in list ("Male Gryffindor","Female Gryffindor","Male Slytherin","Female Slytherin","Male Ravenclaw","Female Ravenclaw","Male Hufflepuff","Female Hufflepuff"))
-				if("Male Gryffindor")
-					character.verbs += /mob/GM/verb/Gryffindor_Chat
-					character.House="Gryffindor"
-					character.Gender="Male"
-					character.icon='MaleGryffindor.dmi'
-				//	character<<"<font color=red><font size=3>You are a Gryffindor. Do NOT tell anyone in another house your Common Room Password! The password to the Gryffindor Common Room is, <font color=blue>Fortuna"
-				if("Female Gryffindor")
-					character.House="Gryffindor"
-					character.Gender="Female"
-					character.verbs += /mob/GM/verb/Gryffindor_Chat
-					character.icon='FemaleGryffindor.dmi'
-				//	character<<"<font color=red><font size=3>You are a Gryffindor. Do NOT tell anyone in another house your Common Room Password! The password to the Gryffindor Common Room is, <font color=blue>Fortuna"
-				if("Male Slytherin")
-					character.House="Slytherin"
-					character.Gender="Male"
-					character.verbs += /mob/GM/verb/Slytherin_Chat
-					character.icon='MaleSlytherin.dmi'
-				//	character<<"<font size=3><font color=red>You are a Slytherin. Do NOT tell anyone in another house your Common Room Password! The password to the Slytherin Common Room is, <font color=blue>Kedavra"
-				if("Female Slytherin")
-					character.House="Slytherin"
-					character.Gender="Female"
-					character.verbs += /mob/GM/verb/Slytherin_Chat
-					character.icon='FemaleSlytherin.dmi'
-				if("Male Ravenclaw")
-					character.House="Ravenclaw"
-					character.Gender="Male"
-					character.verbs += /mob/GM/verb/Ravenclaw_Chat
-					character.icon='MaleRavenclaw.dmi'
-				if("Female Ravenclaw")
-					character.House="Ravenclaw"
-					character.Gender="Female"
-					character.verbs += /mob/GM/verb/Ravenclaw_Chat
-					character.icon='FemaleRavenclaw.dmi'
-				if("Male Hufflepuff")
-					character.House="Hufflepuff"
-					character.Gender="Male"
-					character.verbs += /mob/GM/verb/Hufflepuff_Chat
-					character.icon='MaleHufflepuff.dmi'
-				if("Female Hufflepuff")
-					character.House="Hufflepuff"
-					character.Gender="Female"
-					character.verbs += /mob/GM/verb/Hufflepuff_Chat
-					character.icon='FemaleHufflepuff.dmi'
-				//	character<<"<span style=\"font-size:3;\"><font color=red>You are now a Hufflepuff. Common Room password is <font size=3><font color=red>Maroon</span><p><b>Dont Tell Anyone Outside of Your House or you will be expelled."
-
-			character.Rank="Player"
-			character.baseicon = character.icon
-			character.Year="1st Year"
-			if(character.Gender=="Female")
-				character.gender = FEMALE
-			else if(character.Gender=="Male")
-				character.gender = MALE
-
-			src<<"<b><span style=\"font-size:2;color:#3636F5;\">Welcome to The Wizards Chronicles</span> <u><a href='https://github.com/DuncanFairley/TWC/commits/master'>Version [VERSION].[SUB_VERSION]</a></u></b> <br>Join Discord <a href=\"https://discord.gg/3HbY5PjmjE\">here.</a>"
-			src<<"<b>You are in the entrance to Diagon Alley.</b>"
-			src<<"<b><u>Ollivander has a wand for you. Go up, and the first door on your right is the entrance to Ollivander's wand store.</u></b>"
-		//	src<<"<h3>For a full player guide, visit http://guide.wizardschronicles.com.</h3>"
-
-			if(!worldData.loggedIn)
-				worldData.loggedIn = list()
-
-			if(client.connection == "web")
-				worldData.loggedIn[client.address] = client.ckey
-			else
-				worldData.loggedIn[client.computer_id] = client.ckey
-
-			worldData.loggedIn[client.ckey] = 1
-
-			var/oldmob = src
-			src.client.mob = character
-			var/obj/items/money/gold/g = new (character)
-			g.UpdateDisplay()
-
-			var/obj/o = locate("@DiagonAlley")
-			character.loc = o.loc
-			character.verbs += /mob/Spells/verb/Inflamari
-			character.verbs += /mob/Spells/verb/Episky
-			character.Fire  = new("Fire")
-			character.Earth = new("Earth")
-			character.Water = new("Water")
-			character.Ghost = new("Ghost")
-			character.Gathering = new("Gathering")
-			character.Taming = new("Taming")
-			character.Alchemy = new("Alchemy")
-			character.Slayer = new("Slayer")
-			character.Summoning = new("Summoning")
-			character.Spellcrafting = new("Spellcrafting")
-			character.TreasureHunting = new("Treasure Hunting")
-			character.hpBar = new(character)
-			character.InitMouseHelper()
-
-			for(var/mob/Player/p in Players)
-				if(p.Gm)
-					p << "<span style=\"font-size:2; color:#C0C0C0;\"><b><i>[character][character.refererckey==p.client.ckey ? "(referral)" : ""] ([character.client.address])([character.ckey])([character.client.connection == "web" ? "webclient" : "dreamseeker"]) logged in.</i></b></span>"
-				else
-					p << "<span style=\"font-size:2; color:#C0C0C0;\"><b><i>[character][character.refererckey==p.client.ckey ? "(referral)" : ""] logged in.</i></b></span>"
-
-			character.SendDiscord("logged in (new)")
-
-			if(character.client.tmpInterface)
-				character.Interface = character.client.tmpInterface
-				character.Interface.Init(character)
-			character.startQuest("Tutorial: The Wand Maker")
-			character.buildBackpack()
-			src = null
-			sql_check_for_referral(character)
-			del(oldmob)
 
 mob/Topic(href, href_list[])
 	..()
-	world << "Topic: [href] [href_list]"
-	if(href_list["action"] == "createchar")
-		var/desiredname = href_list["name"]
-		var/house = href_list["house"]
-		var/gender = href_list["gender"]
+	if(href_list["action"])
+		if(copytext(href_list["action"], 1, 11) == "createchar")
+			var/desiredname = href_list["name"]
+			var/house = href_list["house"]
+			var/gender = href_list["gender"]
 
-		var/reason = new_character_name_filter(desiredname)
-		if(reason)
-			src << output("Your desired name is not allowed as it [reason].", "charcreate.browser")
-			return
+			if(!desiredname || desiredname == "")
+				alert("You must enter a name for your character.")
+				return
+			
+			if(length(desiredname) < 3)
+				alert("Your desired name is too short. It must be at least 3 characters long.")
+				return
 
-		switch(alert("Confirm Character Creation","Yes","No"))
-			if(1)
-				finish_character_creation(desiredname, house, gender)
-			else
-				src << output("Character creation cancelled.", "charcreate.browser")
+			var/reason = new_character_name_filter(desiredname)
+			if(reason)
+				alert("Your desired name is not allowed - [reason].")
+				return
 
-mob/proc/finish_character_creation(name, house, gender)
+			switch(input("Confirm Character Creation (Type Yes or No)","Yes","No"))
+				if("Yes")
+					finish_character_creation(desiredname, house, gender)
+				if("No")
+					src << output("Character creation cancelled.", "charcreate.browser")
+
+mob/proc/finish_character_creation(desiredname, house, gender)
+	src << browse(null, "window=cc")
 	var/mob/Player/character = new()
 	character.save_loaded = 1
-	var/charname = copytext(name, 1, 24)
-	charname = addtext(uppertext(copytext(charname,1,2)), copytext(charname,2,length(charname)+1))
-	character.name = "[html_encode(charname)]"
+	var/charname = desiredname
+	charname=copytext(charname,1,24/*the 20 is max name length*/)
+	charname = addtext(uppertext(copytext(charname,1,2)),copytext(charname,2,length(charname)+1))
+	src << desiredname
+	character.name= desiredname
 
 	character.House = house
 	character.Gender = gender
@@ -880,14 +769,66 @@ mob/proc/finish_character_creation(name, house, gender)
 		character.verbs += /mob/GM/verb/Hufflepuff_Chat
 		character.icon = gender == "Male" ? 'MaleHufflepuff.dmi' : 'FemaleHufflepuff.dmi'
 
-	character.Rank = "Player"
+	character.Rank="Player"
 	character.baseicon = character.icon
-	character.Year = "1st Year"
+	character.Year="1st Year"
+	if(character.Gender=="Female")
+		character.gender = FEMALE
+	else if(character.Gender=="Male")
+		character.gender = MALE
 
+	src<<"<b><span style=\"font-size:2;color:#3636F5;\">Welcome to The Wizards Chronicles</span> <u><a href='https://github.com/DuncanFairley/TWC/commits/master'>Version [VERSION].[SUB_VERSION]</a></u></b> <br>Join Discord <a href=\"https://discord.gg/3HbY5PjmjE\">here.</a>"
+	src<<"<b>You are in the entrance to Diagon Alley.</b>"
+	src<<"<b><u>Ollivander has a wand for you. Go up, and the first door on your right is the entrance to Ollivander's wand store.</u></b>"
+
+	if(!worldData.loggedIn)
+		worldData.loggedIn = list()
+	if(client.connection == "web")
+		worldData.loggedIn[client.address] = client.ckey
+	else
+		worldData.loggedIn[client.computer_id] = client.ckey
+
+	worldData.loggedIn[client.ckey] = 1
+
+	var/oldmob = src
 	src.client.mob = character
-	character.loc = locate("@DiagonAlley")
-	src << browse(null, "window=charcreate") // close the HTML window
-	character << "<b>Welcome to The Wizards Chronicles!</b>"
+	var/obj/items/money/gold/g = new (character)
+	g.UpdateDisplay()
+
+	var/obj/o = locate("@DiagonAlley")
+	character.loc = o.loc
+	character.verbs += /mob/Spells/verb/Inflamari
+	character.verbs += /mob/Spells/verb/Episky
+	character.Fire  = new("Fire")
+	character.Earth = new("Earth")
+	character.Water = new("Water")
+	character.Ghost = new("Ghost")
+	character.Gathering = new("Gathering")
+	character.Taming = new("Taming")
+	character.Alchemy = new("Alchemy")
+	character.Slayer = new("Slayer")
+	character.Summoning = new("Summoning")
+	character.Spellcrafting = new("Spellcrafting")
+	character.TreasureHunting = new("Treasure Hunting")
+	character.hpBar = new(character)
+	character.InitMouseHelper()
+
+	for(var/mob/Player/p in Players)
+		if(p.Gm)
+			p << "<span style=\"font-size:2; color:#C0C0C0;\"><b><i>[character][character.refererckey==p.client.ckey ? "(referral)" : ""] ([character.client.address])([character.ckey])([character.client.connection == "web" ? "webclient" : "dreamseeker"]) logged in.</i></b></span>"
+		else
+			p << "<span style=\"font-size:2; color:#C0C0C0;\"><b><i>[character][character.refererckey==p.client.ckey ? "(referral)" : ""] logged in.</i></b></span>"
+
+	character.SendDiscord("logged in (new)")
+
+	if(character.client.tmpInterface)
+		character.Interface = character.client.tmpInterface
+		character.Interface.Init(character)
+	character.startQuest("Tutorial: The Wand Maker")
+	character.buildBackpack()
+	src = null
+	sql_check_for_referral(character)
+	del(oldmob)
 
 proc/new_character_name_filter(name)
 	//Returns reason that name is not allowed, or null if it is accepted
