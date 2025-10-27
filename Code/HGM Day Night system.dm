@@ -344,6 +344,57 @@ mob/GM/verb
 		Players << infomsg("The weather has cleared.")
 		weather.clear()
 
+	SetTimeOfDay(state as text)
+		set category="Server"
+		if(!state || state == "")
+			Players << infomsg("Usage: SetTimeOfDay <StateName>")
+			return
+
+		var/datum/TimeState/target = null
+		for(var/datum/TimeState/s in AllStates)
+			// case-insensitive match
+			if(lowertext(s.name) == lowertext(state))
+				target = s
+				break
+
+		if(!target)
+			var/list/names = list()
+			for(var/datum/TimeState/s2 in AllStates)
+				names += s2.name
+			Players << infomsg("Unknown time state '[state]'. Available: [names]")
+			return
+
+		current_state = target
+		SetDayPhase(target.name, target.duration)
+		current_state.Enter()
+
+	SetTimeStateDuration(state as text, duration as num)
+		set category="Server"
+		if(!state || state == "" || !duration)
+			Players << infomsg("Usage: SetTimeStateDuration <StateName> <Duration>")
+			return
+
+		if(duration < 1)
+			Players << infomsg("Duration must be greater than 0")
+			return
+
+		var/datum/TimeState/target = null
+		for(var/datum/TimeState/s in AllStates)
+			// case-insensitive match
+			if(lowertext(s.name) == lowertext(state))
+				target = s
+				break
+
+		if(!target)
+			var/list/names = list()
+			for(var/datum/TimeState/s2 in AllStates)
+				names += s2.name
+			Players << infomsg("Unknown time state '[state]'. Available: [names]")
+			return
+
+		target.duration = duration
+		Players << infomsg("Duration for [target.name] has been set to [duration]")
+
 
 obj/weather
 	layer = 7	// weather appears over the darkness because I think it looks better that way
