@@ -1,1 +1,0 @@
-byond.exe -trace
