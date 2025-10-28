@@ -688,13 +688,14 @@ mob
         const name = document.getElementById("charname").value;
         const house = document.getElementById("house").value;
         const gender = document.querySelector('input\[name="gender"]:checked').value;
+		const boost = document.querySelector('input\[name="boost"]:checked').value;
         const byondRef = "?src=["\ref[src]"]";
 
         var link = "byond://" + byondRef + "&action=createchar"
             + "&name=" + encodeURIComponent(name)
             + "&house=" + encodeURIComponent(house)
             + "&gender=" + encodeURIComponent(gender)
-			+ "&boost=" + encodeURIComponent(document.getElementById("boost").value);
+			+ "&boost=" + encodeURIComponent(boost);
 
 		document.querySelector('.dev').textContent = link;
         window.location = link;
@@ -702,81 +703,190 @@ mob
 	setTimeout(updatePreview, 1000);
 </script>
 <body>
-    <h2>Create Your Wizard</h2>
-    <label>Name:</label>
-    <input type="text" id="charname" maxlength="16"><br><br>
+	<div class="container">
+		<h2>Create Your Character</h2>
+		<div class="form-group">
+			<label>Name:</label>
+			<input type="text" id="charname" maxlength="16"><br><br>
+		</div>
 
-	<img id="charPreview" src='MaleHufflepuff.dmi' width=32 height=32>
-    <label>Gender:</label>
-    <input type="radio" name="gender" value="Male" checked onclick="updatePreview()"> Male
-    <input type="radio" name="gender" value="Female" onclick="updatePreview()"> Female<br><br>
+		<div class="form-group-row">
+			<img id="charPreview" src='MaleHufflepuff.dmi' width=32 height=32>
+			<label>Gender:</label>
+			<input type="radio" name="gender" value="Male" checked onclick="updatePreview()"> Male
+			<input type="radio" name="gender" value="Female" onclick="updatePreview()"> Female<br><br>
+		</div>
 
-    <label>House:</label>
-    <select id="house" onchange="updatePreview()">
-        <option>Gryffindor</option>
-        <option>Slytherin</option>
-        <option>Ravenclaw</option>
-        <option>Hufflepuff</option>
-    </select><br><br>
+		<div class="form-group">
+			<label>House:</label>
+			<select id="house" onchange="updatePreview()">
+				<option>Gryffindor</option>
+				<option>Slytherin</option>
+				<option>Ravenclaw</option>
+				<option>Hufflepuff</option>
+			</select><br><br>
+		</div>
 
-	<label>Starting Gift:</label>
-    <select id="boost">
-        <option value="Bookworm">Bookworm - Start with 5 spell points and <span style="color: cyan;">+100MP</span></option>
-        <option value="Rich">Rich - Start with 2 extra <span style="color: gold;">Gold coins</span></option>
-        <option value="GlassCanon">Glass Cannon - Start with <span style="color: red;">+50 dmg</span>, but lose <span style="color: silver;">50 defense</span></option>
-    </select><br><br>
+		<div class="form-group">
+			<label>Starting Gift:</label>
+			<div class="boost-options">
+				<label class="boost-option">
+					<input type="radio" name="boost" value="Bookworm" checked>
+					<span class="boost-label">
+						<b>Bookworm</b><br>
+						Start with 5 spell points and <span style="color: cyan;">+100MP</span>
+					</span>
+				</label>
+				<label class="boost-option">
+					<input type="radio" name="boost" value="Rich">
+					<span class="boost-label">
+						<b>Rich</b><br>
+						Start with 2 extra <span style="color: gold;">Gold coins</span>
+					</span>
+				</label>
+				<label class="boost-option">
+					<input type="radio" name="boost" value="GlassCanon">
+					<span class="boost-label">
+						<b>Glass Cannon</b><br>
+						Start with <span style="color: red;">+50 dmg</span>, but lose <span style="color: silver;">50 defense</span>
+					</span>
+				</label>
+				<label class="boost-option">
+					<input type="radio" name="boost" value="Challenge-StarvingForKnowledge">
+					<span class="boost-label">
+						<b>Challenge: Starving For Knowledge</b><br>
+						Not earning XP for a prolonged period of time will kill you.
+					</span>
+				</label>
+			</div>
+		</div>
 
-    <p class="dev"></p>
+		<p class="dev"></p>
 
-    <button onclick="submitCharacter()">Create Character</button>
+		<div class="form-group">
+			<button onclick="submitCharacter()">Create Character</button>
+		</div>
+	</div>
 </body>
 <style>
-    body {
+    .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        max-width: 700px;
+        margin: 0 auto;
+        padding: 20px;
         background: linear-gradient(135deg, #1a1a2e, #16213e);
         color: #f5f5f5;
         font-family: 'Georgia', serif;
-        text-align: center;
-        padding: 40px;
+        border-radius: 10px;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
     }
 
     h2 {
         font-size: 28px;
         color: #ffd700;
-        margin-bottom: 30px;
+        margin-bottom: 20px;
         text-shadow: 0 0 10px rgba(255, 215, 0, 0.6);
     }
 
+    .form-group {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 20px;
+        width: 100%;
+    }
+
+	.form-group-row {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        margin-bottom: 20px;
+		gap: 15px;
+    }
+
     label {
-        display: inline-block;
-        width: 100px;
-        text-align: right;
-        margin-right: 10px;
         font-weight: bold;
         color: #e0e0e0;
+        margin-bottom: 5px;
     }
 
     input\[type="text"], select {
-        width: 200px;
-        padding: 6px 10px;
+        width: 100%;
+        max-width: 300px;
+        padding: 8px;
         border-radius: 8px;
         border: none;
         outline: none;
         background-color: #0f3460;
         color: #f5f5f5;
         font-size: 14px;
+        text-align: center;
+    }
+
+    .radio-group {
+        display: flex;
+        gap: 20px;
+        justify-content: center;
     }
 
     input\[type="radio"] {
-        margin-left: 10px;
+        margin-right: 5px;
         accent-color: #ffd700;
     }
 
-    br {
-        line-height: 2;
+    .boost-options {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+        margin-top: 10px;
+    }
+
+    .boost-option {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background: linear-gradient(135deg, #0f3460, #1a1a2e);
+        border: 2px solid #ffd700;
+        border-radius: 10px;
+        padding: 15px;
+        width: 150px;
+        cursor: pointer;
+        transition: transform 0.2s, box-shadow 0.3s;
+    }
+
+    .boost-option:hover {
+        transform: scale(1.05);
+        box-shadow: 0 0 15px rgba(255, 215, 0, 0.6);
+    }
+
+    .boost-option input\[type="radio"] {
+        display: none;
+    }
+
+    .boost-option input\[type="radio"]:checked + .boost-label {
+        background: rgba(255, 215, 0, 0.2);
+        border: 2px solid #ffd700;
+        border-radius: 8px;
+        padding: 10px;
+    }
+
+    .boost-label {
+        text-align: center;
+        color: #f5f5f5;
+        font-family: 'Georgia', serif;
+        font-size: 14px;
+    }
+
+    .boost-label b {
+        font-size: 16px;
+        color: #ffd700;
     }
 
     button {
-        margin-top: 20px;
         background-color: #ffd700;
         color: #1a1a2e;
         font-weight: bold;
@@ -799,9 +909,8 @@ mob
         font-size: 14px;
         word-wrap: break-word;
         max-width: 600px;
-        margin-left: auto;
-        margin-right: auto;
-        background: rgba(255,255,255,0.1);
+        text-align: center;
+        background: rgba(255, 255, 255, 0.1);
         padding: 10px;
         border-radius: 8px;
     }
@@ -809,7 +918,7 @@ mob
 </html>
 			"}
 			//usr << browse(file("character_creation.html"), "window=cc")
-			usr << browse(html, "window=cc;size=500x500;titlebar=0;")
+			usr << browse(html, "window=cc;size=700x800;titlebar=0;")
 			usr << browse_rsc('MaleSlytherin.dmi')
 			usr << browse_rsc('FemaleSlytherin.dmi')
 			usr << browse_rsc('MaleGryffindor.dmi')
