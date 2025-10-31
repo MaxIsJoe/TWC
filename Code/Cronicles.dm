@@ -748,7 +748,7 @@ obj/loginCamera
 						target = null
 			sleep(4)
 			steps++
-			if (steps > 15)
+			if (steps > 55)
 				if(landmarks && landmarks.len)
 					// Fade out for all clients viewing this camera
 					for(var/client/C)
