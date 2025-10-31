@@ -712,15 +712,23 @@ obj/loginCamera
 	mouse_opacity = 0
 	invisibility = 10
 	glide_size = 8
+	var/tmp/list/landmarks
 
 	New()
 		..()
 		tag = "loginCamera"
+		if(!landmarks)
+			landmarks = list()
+			for(var/atom/A in world)
+				if(A.tag && copytext(A.tag, 1, 2) == "@")
+					landmarks += A
 		wander()
 
 	proc/wander()
 		set waitfor = 0
 		var/turf/target
+		var/turf/lastTurf
+		var/steps = 0
 		while(src)
 			if(!target || loc == target)
 				target = locate(rand(50,70), rand(25,75), z)
@@ -729,8 +737,52 @@ obj/loginCamera
 			if(t)
 				loc = t
 			else
-				target = null
+				// Phase through walls: force step toward target even if blocked
+				if(target)
+					var/dx = (target.x > x) - (target.x < x)
+					var/dy = (target.y > y) - (target.y < y)
+					var/turf/n = locate(x+dx, y+dy, z)
+					if(n)
+						loc = n
+					else
+						target = null
 			sleep(4)
+			steps++
+			if (steps > 15)
+				if(landmarks && landmarks.len)
+					// Fade out for all clients viewing this camera
+					for(var/client/C)
+						if(C.eye == src)
+							C.FadeScreen(8, 255)
+							sleep(12)
+					var/turf/randomTurf = pick(landmarks)
+					while(randomTurf == lastTurf)
+						randomTurf = pick(landmarks)
+					loc = randomTurf.loc
+					lastTurf = randomTurf
+					for(var/client/C)
+						if(C.eye == src)
+							C.FadeScreen(12, 0)
+				else
+					target = null
+				steps = 0
+
+
+client/proc/FadeScreen(duration, newAlpha)
+	if(fader == null)
+		fader = new
+		fader.icon = 'black50.dmi'
+		fader.icon_state = "deepblack"
+		fader.color = "black"
+		fader.alpha = 0
+		fader.layer = 100
+		fader.screen_loc = "SOUTHWEST to NORTHEAST"
+	screen += fader
+	animate(fader, alpha = newAlpha, time = duration, easing = SINE_EASING)
+
+client
+    var obj/fader
+
 
 PlayerData/var/autoLoad = 0
 
