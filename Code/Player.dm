@@ -1077,11 +1077,11 @@ mob/Player
 					stat(a.spectateObj)*/
 
 
-mob/Login()
+mob/New()
 	..()
 	active_mobs += src
 
-mob/Logout()
+mob/Del()
 	..()
 	active_mobs -= src 
 
@@ -1093,6 +1093,17 @@ proc/GlobalMobProcessor()
     while(TRUE)
         for(var/mob/Player/M in active_mobs)
             M.ProcessTick()
-        sleep(15)
+        sleep(10)
 
-mob/Player/proc/ProcessTick()
+mob/Player
+    var/list/tick_procs = list()
+
+    proc/RegisterTickProc(procname)
+        tick_procs += procname
+
+    proc/UnregisterTickProc(procname)
+        tick_procs -= procname
+
+    proc/ProcessTick()
+        for(var/procname in tick_procs)
+            call(src, procname)()

@@ -966,7 +966,6 @@ mob/proc/finish_character_creation(desiredname, house, gender, boost)
 	var/charname = desiredname
 	charname=copytext(charname,1,24/*the 20 is max name length*/)
 	charname = addtext(uppertext(copytext(charname,1,2)),copytext(charname,2,length(charname)+1))
-	src << desiredname
 	character.name = desiredname
 	character.House = house
 	character.Gender = gender
@@ -1062,8 +1061,8 @@ proc/new_player_check_starting_gift(mob/Player/character, gift as text)
 	else if(gift == "GlassCanon")
 		character.Dmg += 50
 		character.Def -= 50
-	//else if(gift == "Challenge-StarvingForKnowledge")
-		//character.startQuest("Challenge: Starving For Knowledge")
+	else if(gift == "Challenge-StarvingForKnowledge")
+		character.RegisterTickProc("challenge_StarveForXP")
 
 proc/new_character_name_filter(name)
 	//Returns reason that name is not allowed, or null if it is accepted

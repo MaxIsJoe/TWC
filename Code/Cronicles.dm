@@ -805,7 +805,7 @@ mob/BaseCamp/ChoosingCharacter
 					return
 
 		reportDiscordWho = 1
-		spawn(5) new /hudobj/logo/Logo(null, client, null, 1)
+		new /hudobj/logo/Logo(null, client, null, 1)
 		new /hudobj/login/New(null, client, null, 1)
 		new /hudobj/login/Load(null, client, null, 1)
 
