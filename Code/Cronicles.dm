@@ -670,7 +670,6 @@ hudobj
 		MouseExited()
 			transform = null
 
-
 		Load
 			maptext = "<b><span style=\"font-size:14px;color:#34d\">Load</span></b>"
 			maptext_width = 64
@@ -696,6 +695,18 @@ hudobj
 				if(istype(usr,/mob/BaseCamp/ChoosingCharacter))
 					usr.client.glide_size = GLIDE_SIZE
 					usr:New_Character()
+
+hudobj
+	logo
+		mouse_opacity = 0
+		anchor_y    = "SOUTH"
+		Logo
+			icon = 'Icons/hud/login/logo.dmi'
+			icon_state = "logo"
+			screen_x   = 470
+			screen_y   = 300
+			width = 16
+			height = 16
 
 obj/loginCamera
 	mouse_opacity = 0
@@ -742,6 +753,7 @@ mob/BaseCamp/ChoosingCharacter
 					return
 
 		reportDiscordWho = 1
+		spawn(5) new /hudobj/logo/Logo(null, client, null, 1)
 		new /hudobj/login/New(null, client, null, 1)
 		new /hudobj/login/Load(null, client, null, 1)
 
