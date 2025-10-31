@@ -1052,7 +1052,7 @@ proc/new_player_check_starting_gift(mob/Player/character, gift as text)
 	if(gift == "Bookworm")
 		character.MPRegen += 50
 		character.spellpoints += 5
-		sleep(2)
+		sleep(1)
 		character.resetMaxMP()
 		character.Interface.Update()
 	else if(gift == "Rich")

@@ -1,3 +1,4 @@
+var/list/active_mobs = list()
 mob/var
 	level=1
 	Dmg=5
@@ -126,7 +127,6 @@ proc/level2year(level)
 	return 8
 
 mob/proc/Death_Check(mob/killer = src)
-
 	if(src.HP<1)
 		if(isplayer(src))
 			var/mob/Player/p = src
@@ -676,7 +676,6 @@ mob/Player/proc/Resort_Stacking_Inv()
 		src:stackobjects = null
 
 proc/getMasteryRank(var/uses)
-
 	var/i = round(log(10, uses))
 	if(i >= 6) return "Grandmaster"
 	if(i >= 5) return "Master"
@@ -1076,3 +1075,24 @@ mob/Player
 				stat("Matchmaking:", "(Click to spectate. Click again to stop.)")
 				for(var/arena/a in worldData.currentMatches.arenas)
 					stat(a.spectateObj)*/
+
+
+mob/Login()
+	..()
+	active_mobs += src
+
+mob/Logout()
+	..()
+	active_mobs -= src 
+
+world/New()
+    ..()
+    spawn() GlobalMobProcessor()
+
+proc/GlobalMobProcessor()
+    while(TRUE)
+        for(var/mob/Player/M in active_mobs)
+            M.ProcessTick()
+        sleep(15)
+
+mob/Player/proc/ProcessTick()
