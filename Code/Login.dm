@@ -734,7 +734,7 @@ mob
 					<input type="radio" name="boost" value="Bookworm" checked>
 					<span class="boost-label">
 						<b>Bookworm</b><br>
-						Start with 5 spell points and <span style="color: cyan;">+100MP</span>
+						Start with 5 spell points and <span style="color: cyan;">+50 Mana Regen</span>
 					</span>
 				</label>
 				<label class="boost-option">
@@ -967,8 +967,7 @@ mob/proc/finish_character_creation(desiredname, house, gender, boost)
 	charname=copytext(charname,1,24/*the 20 is max name length*/)
 	charname = addtext(uppertext(copytext(charname,1,2)),copytext(charname,2,length(charname)+1))
 	src << desiredname
-	character.name= desiredname
-
+	character.name = desiredname
 	character.House = house
 	character.Gender = gender
 
@@ -986,17 +985,17 @@ mob/proc/finish_character_creation(desiredname, house, gender, boost)
 		character.verbs += /mob/GM/verb/Hufflepuff_Chat
 		character.icon = gender == "Male" ? 'MaleHufflepuff.dmi' : 'FemaleHufflepuff.dmi'
 
-	character.Rank="Player"
+	character.Rank = "Player"
 	character.baseicon = character.icon
-	character.Year="1st Year"
-	if(character.Gender=="Female")
+	character.Year = "1st Year"
+	if(character.Gender == "Female")
 		character.gender = FEMALE
-	else if(character.Gender=="Male")
+	else if(character.Gender == "Male")
 		character.gender = MALE
 
-	src<<"<b><span style=\"font-size:2;color:#3636F5;\">Welcome to The Wizards Chronicles</span> <u><a href='https://github.com/DuncanFairley/TWC/commits/master'>Version [VERSION].[SUB_VERSION]</a></u></b> <br>Join Discord <a href=\"https://discord.gg/3HbY5PjmjE\">here.</a>"
-	src<<"<b>You are in the entrance to Diagon Alley.</b>"
-	src<<"<b><u>Ollivander has a wand for you. Go up, and the first door on your right is the entrance to Ollivander's wand store.</u></b>"
+	src << "<b><span style=\"font-size:2;color:#3636F5;\">Welcome to The Wizards Chronicles</span> <u><a href='https://github.com/DuncanFairley/TWC/commits/master'>Version [VERSION].[SUB_VERSION]</a></u></b> <br>Join Discord <a href=\"https://discord.gg/3HbY5PjmjE\">here.</a>"
+	src << "<b>You are in the entrance to Diagon Alley.</b>"
+	src << "<b><u>Ollivander has a wand for you. Go up, and the first door on your right is the entrance to Ollivander's wand store.</u></b>"
 
 	if(!worldData.loggedIn)
 		worldData.loggedIn = list()
@@ -1044,20 +1043,27 @@ mob/proc/finish_character_creation(desiredname, house, gender, boost)
 	character.startQuest("Tutorial: The Wand Maker")
 	character.buildBackpack()
 
-	if (boost == "Bookworm")
-		character.MMP += 100
-		character.spellpoints += 5
-	else if (boost == "Rich")
-		var/gold/boostG = new (bronze=20000)
-		usr << infomsg("You've been given [boostG.toString()] because of your wealthy background.")
-		boostG.give(character)
-	else if (boost == "GlassCanon")
-		character.Dmg += 50
-		character.Def -= 50
-
+	new_player_check_starting_gift(character, boost)
 	src = null
 	sql_check_for_referral(character)
 	del(oldmob)
+
+proc/new_player_check_starting_gift(mob/Player/character, gift as text)
+	if(gift == "Bookworm")
+		character.MPRegen += 50
+		character.spellpoints += 5
+		sleep(2)
+		character.resetMaxMP()
+		character.Interface.Update()
+	else if(gift == "Rich")
+		var/gold/boostG = new (bronze=20000)
+		character << infomsg("You've been given [boostG.toString()] because of your wealthy background.")
+		boostG.give(character)
+	else if(gift == "GlassCanon")
+		character.Dmg += 50
+		character.Def -= 50
+	//else if(gift == "Challenge-StarvingForKnowledge")
+		//character.startQuest("Challenge: Starving For Knowledge")
 
 proc/new_character_name_filter(name)
 	//Returns reason that name is not allowed, or null if it is accepted
@@ -2835,7 +2841,7 @@ mob/Player/proc/resetMaxHP()
 		updateHP()
 
 mob/Player/proc/resetMaxMP()
-	MMP = 6 * level + 194 + extraMP
+	MMP = 6 * level + 194 + extraMP + ( MPRegen / 4 )
 	if(MP > MMP)
 		MP = MMP
 	updateMP()
