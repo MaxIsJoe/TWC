@@ -661,16 +661,349 @@ mob
 			var/html = \
 			{"
 <!DOCTYPE html>
-<html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Character Creator</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&family=UnifrakturCook:wght@700&display=swap" rel="stylesheet">
+<style>
+    body {
+        background: radial-gradient(circle at top, #0a0a0a, #000);
+        color: #eaeaea;
+        font-family: 'Cinzel', serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .container {
+        background: rgba(15, 15, 15, 0.95);
+        border: 2px solid #5a0000;
+        border-radius: 15px;
+        padding: 30px;
+        box-shadow: 0 0 25px #5a0000aa, inset 0 0 10px #222;
+        max-width: 700px;
+        width: 90%;
+        text-align: center;
+        position: relative;
+    }
+
+    .container::before {
+        content: "";
+        position: absolute;
+        top: -10px;
+        left: -10px;
+        right: -10px;
+        bottom: -10px;
+        border: 1px solid #b80000;
+        border-radius: 20px;
+        opacity: 0.3;
+        pointer-events: none;
+    }
+
+    h2 {
+        font-family: 'UnifrakturCook', cursive;
+        font-size: 36px;
+        color: #ffffff;
+        text-shadow: 0 0 15px #ffffffaa, 0 0 5px #ffffff55;
+        margin-bottom: 25px;
+    }
+
+    .form-group, .form-group-row {
+        margin-bottom: 20px;
+    }
+
+    label {
+        font-weight: bold;
+        color: #d0d0d0;
+        margin-bottom: 5px;
+        text-shadow: 0 0 5px #000;
+    }
+
+    input\[type="text"], select {
+        width: 80%;
+        max-width: 300px;
+        padding: 8px;
+        border-radius: 6px;
+        border: 1px solid #777;
+        background-color: #1a1a1a;
+        color: #f5f5f5;
+        font-size: 15px;
+        text-align: center;
+        box-shadow: 0 0 5px #ffffff22 inset;
+    }
+
+    input\[type="radio"] {
+        accent-color: #f0f0f0;
+        margin: 0 5px;
+    }
+
+    .form-group-row {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 15px;
+    }
+
+    #charPreview {
+        border: 2px solid #aaa;
+        border-radius: 8px;
+        box-shadow: 0 0 10px #ffffff66;
+        background-color: #111;
+        padding: 5px;
+    }
+
+    .boost-options {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px;
+    }
+
+    .boost-option {
+        background: linear-gradient(135deg, #111, #000);
+        border: 1px solid #888;
+        border-radius: 10px;
+        padding: 12px;
+        width: 150px;
+        transition: transform 0.2s, box-shadow 0.3s, border-color 0.3s;
+        cursor: pointer;
+    }
+
+    .boost-option:hover {
+        transform: scale(1.05);
+        box-shadow: 0 0 20px #ffffff55;
+        border-color: #fff;
+    }
+
+    .boost-option input\[type="radio"] {
+        display: none;
+    }
+
+    .boost-option input\[type="radio"]:checked + .boost-label {
+        border: 1px solid #fff;
+        background: rgba(255, 255, 255, 0.1);
+        box-shadow: 0 0 15px #ffffff44;
+    }
+
+    .boost-label {
+        text-align: center;
+        font-size: 13px;
+        color: #d9d9d9;
+        font-family: 'Cinzel', serif;
+    }
+
+    .boost-label b {
+        color: #ffffff;
+        font-size: 15px;
+        display: block;
+        margin-bottom: 3px;
+        text-shadow: 0 0 8px #ffffff88;
+    }
+
+    button {
+        background: linear-gradient(90deg, #ffffff, #bbbbbb);
+        color: #0a0a0a;
+        font-weight: bold;
+        padding: 12px 24px;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        font-size: 16px;
+        transition: background 0.3s, transform 0.2s;
+        font-family: 'Cinzel', serif;
+        box-shadow: 0 0 20px #ffffff44;
+    }
+
+    button:hover {
+        background: linear-gradient(90deg, #ffffff, #dcdcdc);
+        transform: scale(1.05);
+        box-shadow: 0 0 30px #ffffff77;
+    }
+
+    .dev {
+        margin-top: 25px;
+        color: #aaa;
+        font-size: 13px;
+        word-wrap: break-word;
+        max-width: 600px;
+        text-align: center;
+        background: rgba(255, 255, 255, 0.05);
+        padding: 10px;
+        border-radius: 8px;
+        border: 1px solid #555;
+    }
+	/* Gothic Tarot-Card style gift section */
+	.boost-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+	gap: 20px;
+	width: 100%;
+	margin-top: 15px;
+	}
+
+	.boost-card {
+	position: relative;
+	cursor: pointer;
+	border-radius: 12px;
+	overflow: hidden;
+	background: linear-gradient(180deg, #0a0a0a, #111);
+	border: 1px solid #888;
+	box-shadow: 0 0 10px #ffffff22;
+	transition: all 0.3s ease;
+	}
+
+	.boost-card:hover {
+	transform: translateY(-5px);
+	box-shadow: 0 0 25px #ffffff55;
+	}
+
+	.boost-card input\[type="radio"] {
+	display: none;
+	}
+
+	.boost-card input\[type="radio"]:checked + .boost-inner {
+	border: 1px solid #fff;
+	box-shadow: 0 0 25px #ffffff88;
+	background: radial-gradient(circle at top, rgba(255,255,255,0.15), rgba(0,0,0,0.7));
+	}
+
+	.boost-inner {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	padding: 15px 10px;
+	text-align: center;
+	border-radius: 10px;
+	height: 100%;
+	transition: all 0.3s ease;
+	}
+
+	.boost-icon {
+	font-size: 28px;
+	margin-bottom: 10px;
+	color: #ffffffcc;
+	text-shadow: 0 0 8px #ffffff66;
+	}
+
+	.boost-inner h3 {
+	font-family: 'UnifrakturCook', cursive;
+	font-size: 18px;
+	color: #ffffff;
+	margin-bottom: 6px;
+	text-shadow: 0 0 10px #ffffff99;
+	}
+
+	.boost-inner p {
+	font-size: 13px;
+	color: #ccc;
+	line-height: 1.3;
+	}
+
+	.highlight {
+	color: cyan;
+	text-shadow: 0 0 5px #00ffff66;
+	}
+
+	.highlight-gold {
+	color: gold;
+	text-shadow: 0 0 5px #ffdd55aa;
+	}
+
+	.highlight-red {
+	color: #ff6666;
+	text-shadow: 0 0 5px #ff444466;
+	}
+
+	.highlight-silver {
+	color: silver;
+	text-shadow: 0 0 5px #aaaaaa66;
+	}
+
+</style>
+</head>
+<body>
+	<div class="container">
+		<h2>Create Your Character</h2>
+
+		<div class="form-group">
+			<label>Name:</label>
+			<input type="text" id="charname" maxlength="16"><br><br>
+		</div>
+
+		<div class="form-group-row">
+			<img id="charPreview" src='MaleHufflepuff.dmi' width=32 height=32>
+			<label>Gender:</label>
+			<input type="radio" name="gender" value="Male" checked onclick="updatePreview()"> Male
+			<input type="radio" name="gender" value="Female" onclick="updatePreview()"> Female
+		</div>
+
+		<div class="form-group">
+			<label>House:</label>
+			<select id="house" onchange="updatePreview()">
+				<option>Gryffindor</option>
+				<option>Slytherin</option>
+				<option>Ravenclaw</option>
+				<option>Hufflepuff</option>
+			</select>
+		</div>
+
+		<div class="form-group">
+  <label>Starting Gift:</label>
+  <div class="boost-grid">
+    <label class="boost-card">
+      <input type="radio" name="boost" value="Bookworm" checked>
+      <div class="boost-inner">
+        <div class="boost-icon">📜</div>
+        <h3>Bookworm</h3>
+        <p>Start with 5 spell points and <span class="highlight">+50 Mana Regen</span>.</p>
+      </div>
+    </label>
+
+    <label class="boost-card">
+      <input type="radio" name="boost" value="Rich">
+      <div class="boost-inner">
+        <div class="boost-icon">💰</div>
+        <h3>Rich</h3>
+        <p>Start with 2 extra <span class="highlight-gold">Gold coins</span>.</p>
+      </div>
+    </label>
+
+    <label class="boost-card">
+      <input type="radio" name="boost" value="GlassCanon">
+      <div class="boost-inner">
+        <div class="boost-icon">⚔️</div>
+        <h3>Glass Cannon</h3>
+        <p>Gain <span class="highlight-red">+50 Damage</span> but lose <span class="highlight-silver">50 Defense</span>.</p>
+      </div>
+    </label>
+
+    <label class="boost-card">
+      <input type="radio" name="boost" value="Challenge-StarvingForKnowledge">
+      <div class="boost-inner">
+        <div class="boost-icon">☠️</div>
+        <h3>Starving for Knowledge</h3>
+        <p>Failing to gain XP for too long will <span class="highlight-red">kill you</span>.</p>
+      </div>
+    </label>
+  </div>
+</div>
+
+		<p class="dev"></p>
+
+		<div class="form-group">
+			<button onclick="submitCharacter()">Create Character</button>
+		</div>
+	</div>
+
 <script>
 	function updatePreview() {
         const house = document.getElementById("house").value;
         const gender = document.querySelector('input\[name="gender"]:checked').value;
-
         const preview = document.getElementById("charPreview");
         let iconState = "";
 
-        // Determine the icon state based on house and gender
         if (house === "Gryffindor") {
             iconState = gender === "Male" ? "MaleGryffindor.dmi" : "FemaleGryffindor.dmi";
         } else if (house === "Slytherin") {
@@ -681,9 +1014,9 @@ mob
             iconState = gender === "Male" ? "MaleHufflepuff.dmi" : "FemaleHufflepuff.dmi";
         }
 
-        // Update the preview image
         preview.src = `${iconState}`;
     }
+
     function submitCharacter() {
         const name = document.getElementById("charname").value;
         const house = document.getElementById("house").value;
@@ -700,221 +1033,10 @@ mob
 		document.querySelector('.dev').textContent = link;
         window.location = link;
     }
-	setTimeout(updatePreview, 1000);
+
+	setTimeout(updatePreview, 250);
 </script>
-<body>
-	<div class="container">
-		<h2>Create Your Character</h2>
-		<div class="form-group">
-			<label>Name:</label>
-			<input type="text" id="charname" maxlength="16"><br><br>
-		</div>
-
-		<div class="form-group-row">
-			<img id="charPreview" src='MaleHufflepuff.dmi' width=32 height=32>
-			<label>Gender:</label>
-			<input type="radio" name="gender" value="Male" checked onclick="updatePreview()"> Male
-			<input type="radio" name="gender" value="Female" onclick="updatePreview()"> Female<br><br>
-		</div>
-
-		<div class="form-group">
-			<label>House:</label>
-			<select id="house" onchange="updatePreview()">
-				<option>Gryffindor</option>
-				<option>Slytherin</option>
-				<option>Ravenclaw</option>
-				<option>Hufflepuff</option>
-			</select><br><br>
-		</div>
-
-		<div class="form-group">
-			<label>Starting Gift:</label>
-			<div class="boost-options">
-				<label class="boost-option">
-					<input type="radio" name="boost" value="Bookworm" checked>
-					<span class="boost-label">
-						<b>Bookworm</b><br>
-						Start with 5 spell points and <span style="color: cyan;">+50 Mana Regen</span>
-					</span>
-				</label>
-				<label class="boost-option">
-					<input type="radio" name="boost" value="Rich">
-					<span class="boost-label">
-						<b>Rich</b><br>
-						Start with 2 extra <span style="color: gold;">Gold coins</span>
-					</span>
-				</label>
-				<label class="boost-option">
-					<input type="radio" name="boost" value="GlassCanon">
-					<span class="boost-label">
-						<b>Glass Cannon</b><br>
-						Start with <span style="color: red;">+50 dmg</span>, but lose <span style="color: silver;">50 defense</span>
-					</span>
-				</label>
-				<label class="boost-option">
-					<input type="radio" name="boost" value="Challenge-StarvingForKnowledge">
-					<span class="boost-label">
-						<b>Challenge: Starving For Knowledge</b><br>
-						Not earning XP for a prolonged period of time will kill you.
-					</span>
-				</label>
-			</div>
-		</div>
-
-		<p class="dev"></p>
-
-		<div class="form-group">
-			<button onclick="submitCharacter()">Create Character</button>
-		</div>
-	</div>
 </body>
-<style>
-    .container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        max-width: 700px;
-        margin: 0 auto;
-        padding: 20px;
-        background: linear-gradient(135deg, #1a1a2e, #16213e);
-        color: #f5f5f5;
-        font-family: 'Georgia', serif;
-        border-radius: 10px;
-        box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
-    }
-
-    h2 {
-        font-size: 28px;
-        color: #ffd700;
-        margin-bottom: 20px;
-        text-shadow: 0 0 10px rgba(255, 215, 0, 0.6);
-    }
-
-    .form-group {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        margin-bottom: 20px;
-        width: 100%;
-    }
-
-	.form-group-row {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        margin-bottom: 20px;
-		gap: 15px;
-    }
-
-    label {
-        font-weight: bold;
-        color: #e0e0e0;
-        margin-bottom: 5px;
-    }
-
-    input\[type="text"], select {
-        width: 100%;
-        max-width: 300px;
-        padding: 8px;
-        border-radius: 8px;
-        border: none;
-        outline: none;
-        background-color: #0f3460;
-        color: #f5f5f5;
-        font-size: 14px;
-        text-align: center;
-    }
-
-    .radio-group {
-        display: flex;
-        gap: 20px;
-        justify-content: center;
-    }
-
-    input\[type="radio"] {
-        margin-right: 5px;
-        accent-color: #ffd700;
-    }
-
-    .boost-options {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 20px;
-        margin-top: 10px;
-    }
-
-    .boost-option {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        background: linear-gradient(135deg, #0f3460, #1a1a2e);
-        border: 2px solid #ffd700;
-        border-radius: 10px;
-        padding: 15px;
-        width: 150px;
-        cursor: pointer;
-        transition: transform 0.2s, box-shadow 0.3s;
-    }
-
-    .boost-option:hover {
-        transform: scale(1.05);
-        box-shadow: 0 0 15px rgba(255, 215, 0, 0.6);
-    }
-
-    .boost-option input\[type="radio"] {
-        display: none;
-    }
-
-    .boost-option input\[type="radio"]:checked + .boost-label {
-        background: rgba(255, 215, 0, 0.2);
-        border: 2px solid #ffd700;
-        border-radius: 8px;
-        padding: 10px;
-    }
-
-    .boost-label {
-        text-align: center;
-        color: #f5f5f5;
-        font-family: 'Georgia', serif;
-        font-size: 14px;
-    }
-
-    .boost-label b {
-        font-size: 16px;
-        color: #ffd700;
-    }
-
-    button {
-        background-color: #ffd700;
-        color: #1a1a2e;
-        font-weight: bold;
-        padding: 10px 20px;
-        border: none;
-        border-radius: 10px;
-        cursor: pointer;
-        font-size: 16px;
-        transition: transform 0.2s, background 0.3s;
-    }
-
-    button:hover {
-        background-color: #ffea00;
-        transform: scale(1.05);
-    }
-
-    .dev {
-        margin-top: 25px;
-        color: #9be8ff;
-        font-size: 14px;
-        word-wrap: break-word;
-        max-width: 600px;
-        text-align: center;
-        background: rgba(255, 255, 255, 0.1);
-        padding: 10px;
-        border-radius: 8px;
-    }
-</style>
 </html>
 			"}
 			//usr << browse(file("character_creation.html"), "window=cc")
